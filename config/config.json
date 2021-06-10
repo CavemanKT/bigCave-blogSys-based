@@ -1,0 +1,18 @@
+{
+  "development": {
+    "database": "your_project_name_here_development",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "protocol": "postgres",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    },
+    "use_env_variable": "DATABASE_URL"
+  }
+}
