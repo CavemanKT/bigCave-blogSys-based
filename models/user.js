@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const UserSchema = require('./schema/user')
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -14,10 +15,8 @@ module.exports = (sequelize, DataTypes) => {
       User.Posts = this.hasMany(models.Post)
     }
   };
-  User.init({
-    email: DataTypes.STRING,
-    passwordHash: DataTypes.STRING
-  }, {
+  const { tableAttributes } = UserSchema( sequelize, DataTypes )
+  User.init( tableAttributes, {
     sequelize,
     modelName: 'User',
   });

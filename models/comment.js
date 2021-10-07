@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const CommentSchema = require('./schema/comment')
 module.exports = (sequelize, DataTypes) => {
   class Comment extends Model {
 
@@ -10,11 +11,8 @@ module.exports = (sequelize, DataTypes) => {
       // I was gonna add association with other comments, I won't touch this part until I found the solution
     }
   };
-  Comment.init({
-    content: DataTypes.TEXT,
-    postId: DataTypes.INTEGER,
-    commentId: DataTypes.INTEGER
-  }, {
+  const { tableAttributes } = CommentSchema( sequelize, DataTypes )
+  Comment.init( tableAttributes, {
     sequelize,
     modelName: 'Comment',
   });
