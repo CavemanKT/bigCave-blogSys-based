@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "gen-models": "sequelize-auto -o './models/schema' -d your_project_name_here_development -h localhost -p 5432 -e postgres --cf l --sg true",
+    "gen-models": "sequelize-auto -o './models/schema' -d blogSys -h localhost -p 5432 -e postgres --cf l --sg true -u postgres -x 12345678",
     "start": "node main.js"
   },
   "author": "",

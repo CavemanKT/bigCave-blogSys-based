@@ -1,0 +1,61 @@
+@import 'node_modules/bootstrap/scss/bootstrap';
+
+html {
+  min-height: 100%;
+  position: relative;
+
+  .text-decoration-through {
+    text-decoration: line-through;
+  }
+
+  .container-fluid {
+    padding-top: 70px;
+    padding-bottom: 70px;
+
+  }
+
+  .navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 5px;
+  }
+
+  .navbar-nav {
+    li {
+      font-size: 17px;
+
+      .nav-link {
+        margin-left: 10px;
+        cursor: pointer;
+      }
+
+      a:hover {
+        color: #1abc9c !important;
+      }
+    }
+  }
+
+
+  .footer-padding {
+    padding-bottom: 60px;
+  }
+
+  .footer {
+    position: absolute;
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #1abc9c;
+
+    p {
+      margin-top: 25px;
+      font-size: 12px;
+      color: #fff;
+    }
+  }
+}

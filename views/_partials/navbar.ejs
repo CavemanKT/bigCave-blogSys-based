@@ -1,0 +1,63 @@
+<script>
+  $(document).ready(function() {
+    $navbar = $('#navbar')
+
+    $navbar.on('click', '#signup-btn', function(e) {
+      e.preventDefault()
+      $('#signup-modal').modal('show')
+    })
+
+    $navbar.on('click', '#login-btn', function(e) {
+      e.preventDefault()
+      $('#login-modal').modal('show')
+    })
+
+    $navbar.on('click', '#logout-btn', function(e) {
+      e.preventDefault()
+
+      axios({
+        method: 'DELETE',
+        url: '/api/auth/logout'
+      }).then(function() {
+        window.location.href = '/'
+      })
+    })
+  })
+</script>
+
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Daily Journal</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Browse All</a>
+      </li>
+      <% if (currentUser) { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/myPosts">My Page</a>
+        </li>
+        <li class="nav-item">
+          <a id="compose-btn" class="nav-link">Compose</a>
+        </li>
+        <li class="nav-item">
+          <a id="logout-btn" class="nav-link">Logout</a>
+        </li>
+      <% } else { %>
+        <li class="nav-item">
+          <a id="signup-btn" class="nav-link">Signup</a>
+        </li>
+        <li class="nav-item">
+          <a id="login-btn" class="nav-link">Login</a>
+        </li>
+      <% } %>
+    </ul>
+  </div>
+</nav>
+
+<%- include('./signup-modal') %>
+<%- include('./login-modal') %>
+<%- include('./compose-modal') %>

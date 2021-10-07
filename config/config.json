@@ -1,6 +1,8 @@
 {
   "development": {
-    "database": "your_project_name_here_development",
+    "username": "postgres",
+    "password": 12345678,
+    "database": "blogSys",
     "host": "localhost",
     "dialect": "postgres"
   },

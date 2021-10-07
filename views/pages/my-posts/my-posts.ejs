@@ -1,0 +1,13 @@
+<%- contentFor('styles') %>
+<%- contentFor('scripts') %>
+<%- contentFor('body') %>
+  <h1>My Posts</h1>
+<!-- later I will add ranking system -->
+  <br>
+  <% posts.forEach(post => { %>
+    <h1><%= post.title %></h1>
+    <p>
+      <%= `${post.content.substring(0, 100)}... ` %>
+      <a href="/onePost/<%=post.title%>">Read More</a>
+    </p>
+  <% }); %>
