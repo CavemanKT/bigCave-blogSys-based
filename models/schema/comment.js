@@ -11,11 +11,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    postId: {
+    PostId: {
       type: DataTypes.INTEGER,
       allowNull: true
     },
-    commentId: {
+    CommentId: {
       type: DataTypes.INTEGER,
       allowNull: true
     }

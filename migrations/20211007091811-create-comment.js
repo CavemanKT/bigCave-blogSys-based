@@ -12,11 +12,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT('long')
       },
-      postId: {
+      PostId: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      commentId: {
+      CommentId: {
         allowNull: true,
         type: Sequelize.INTEGER
       },

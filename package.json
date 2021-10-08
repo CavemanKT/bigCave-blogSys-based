@@ -20,7 +20,7 @@
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-compile-sass": "^4.0.0",
-    "express-ejs-layouts": "^2.5.0",
+    "express-ejs-layouts": "^2.5.1",
     "express-validator": "^6.11.1",
     "fakergem": "^2.1.0",
     "jquery": "^3.6.0",
