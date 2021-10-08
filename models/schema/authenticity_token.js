@@ -9,11 +9,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     token: {
       type: DataTypes.STRING(255),
-      allowNull: true
+      allowNull: false
     },
     UserId: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: false
     }
   }, {
     sequelize,

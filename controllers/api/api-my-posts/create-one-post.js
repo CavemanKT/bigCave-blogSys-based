@@ -1,5 +1,5 @@
 const { body } = require('express-validator')
-// const MulterParser = require('../../../services/MulterParser')
+const MulterParser = require('../../../services/MulterParser')
 
 const { authenticateCurrentUserByToken, checkValidation } = require('../../_helpers')
 
@@ -11,8 +11,8 @@ const permittedParams = [
 ]
 
 const validation = [
-  body('title').isString().isNumber().withMessage('Title must be a String or Number').notEmpty().withMessage('Title is Required'),
-  body('content').isString().isNumber().withMessage('Content must be a String or Number').notEmpty().withMessage('Content is Required'),
+  body('title').isString().withMessage('Title must be a String or Number').notEmpty().withMessage('Title is Required'),
+  body('content').isString().withMessage('Content must be a String or Number').notEmpty().withMessage('Content is Required'),
 ]
 
 const createMyPosts = async function(req, res) {
@@ -40,12 +40,13 @@ const createMyPosts = async function(req, res) {
 
   res.render('pages/all-posts/home', {
     posts: results.rows,
-    layout: false, })
+    newPost: newPost
+  })
 }
 
 module.exports = [
-  // MulterParser.none(),
-  authenticateCurrentUserByToken('json'),
+  MulterParser.none(),
+  authenticateCurrentUserByToken('html'),
   validation,
   checkValidation,
   createMyPosts

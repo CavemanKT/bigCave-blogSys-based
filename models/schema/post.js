@@ -9,14 +9,14 @@ module.exports = function(sequelize, DataTypes) {
     },
     title: {
       type: DataTypes.STRING(255),
-      allowNull: true
+      allowNull: false
     },
     content: {
       type: DataTypes.TEXT,
-      allowNull: true
+      allowNull: false
     },
     UserId: {
-      type:DataTypes.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false
     }
   }, {

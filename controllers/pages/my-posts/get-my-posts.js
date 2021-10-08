@@ -4,7 +4,7 @@ const { Post } = require('../../../models')  // models
 const myPosts = async function(req, res) {
   const { locals: { currentUser } } = res
   const limit = 6
-  const results = await POst.findAndCountAll({
+  const results = await Post.findAndCountAll({
     where: {
       UserId: currentUser.id
     },
@@ -13,7 +13,9 @@ const myPosts = async function(req, res) {
   })
 // fetch my own posts data from db regarding to the currentUser
 
-  res.render('pages/my-posts/my-posts', {posts: results.rows})
+  results.setUser(currentUser)
+
+  res.render('pages/my-posts/my-posts', {posts: results.rows, results: results})
 }
 
-module.exports = [authenticateCurrentUserByToken, myPosts]
+module.exports = [authenticateCurrentUserByToken('html'), myPosts]

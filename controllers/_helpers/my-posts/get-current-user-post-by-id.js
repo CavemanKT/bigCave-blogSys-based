@@ -1,31 +1,31 @@
-const { Wishlist } = require('../../../models')
+const { Post } = require('../../../models')
 
 module.exports = function(format) {
   return async function (req, res, next) {
     const { locals: { currentUser } } = res
     const { params: { id } } = req
-    const wishlist = await Wishlist.findOne({
+    const post = await Post.findOne({
       where: {
         id: Number(id) || 0,
         UserId: currentUser.id
       },
       include: {
-        association: Wishlist.WishlistItems
+        association: Post.Comments
       },
-      order: [['WishlistItems', 'createdAt', 'DESC']]
+      order: [['createdAt', 'DESC']]
     })
 
     if (!wishlist) {
       if (format === 'modal') {
-        return res.render('api/my-wishlist/not-found', { layout: false })
+        return res.render('api/my-post/not-found', { layout: false })
       }
 
       if (format === 'json') {
-        return res.status(404).json({ message: `Wishlist of ID ${id} not found!` })
+        return res.status(404).json({ message: `Post of ID ${id} not found!` })
       }
     }
 
-    res.locals.currentWishlist = wishlist
+    res.locals.currentPost = post
 
     next()
   }
