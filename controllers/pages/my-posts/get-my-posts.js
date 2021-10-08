@@ -13,9 +13,8 @@ const myPosts = async function(req, res) {
   })
 // fetch my own posts data from db regarding to the currentUser
 
-  results.setUser(currentUser)
 
-  res.render('pages/my-posts/my-posts', {posts: results.rows, results: results})
+  res.render('pages/my-posts/my-posts', {posts: results.rows})
 }
 
 module.exports = [authenticateCurrentUserByToken('html'), myPosts]

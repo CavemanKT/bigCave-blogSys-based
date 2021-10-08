@@ -12,6 +12,11 @@
       $('#login-modal').modal('show')
     })
 
+    $navbar.on('click', '#compose-btn', (e) => {
+      e.preventDefault()
+      $('#compose-modal').modal('show')
+    })
+
     $navbar.on('click', '#logout-btn', function(e) {
       e.preventDefault()
 
@@ -31,7 +36,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="justify-content-end collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
         <a class="nav-link" href="/">Browse All</a>
@@ -39,7 +44,7 @@
       <!-- currentUser -->
       <% if (currentUser) { %>
         <li class="nav-item">
-          <a class="nav-link" href="/myPosts">My Page</a>
+          <a class="nav-link" href="/api/my-posts">My Page</a>
         </li>
         <li class="nav-item">
           <a id="compose-btn" class="nav-link">Compose</a>

@@ -29,7 +29,9 @@ const createMyPosts = async function(req, res) {
       association: Post.Comments
     }
   })
-  newPost = setUser(currentUser)
+
+console.log('create');
+
 
   // find data
   const limit = 6
@@ -39,8 +41,7 @@ const createMyPosts = async function(req, res) {
   })
 
   res.render('pages/all-posts/home', {
-    posts: results.rows,
-    newPost: newPost
+    posts: results.rows
   })
 }
 

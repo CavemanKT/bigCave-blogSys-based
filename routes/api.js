@@ -13,10 +13,7 @@ router.get('/my-posts', require('../controllers/pages/my-posts/get-my-posts'))
 router.post('/my-posts', require('../controllers/api/api-my-posts/create-one-post'))
 // Create                      POST
 
-// router.get('/my-posts/new', require('../controllers/api/api-my-posts/get-new-form'))
-// // new               GET
-
-// router.get('/my-posts/one/:id', require('../controllers/api/api-my-posts/get-one-post'))
+// router.get('/my-posts/show/:id', require('../controllers/api/api-my-posts/get-one-post'))
 // //show                   GET
 
 // router.delete('/my-posts/:id', require('../controllers/api/api-my-posts/delete-one-post'))
