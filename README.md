@@ -11,3 +11,4 @@
 - Run `$ git remote remove origin`
 - Create a new repo and add the repo ssh link to remote
 - Run `$ git push origin master`
+# blogSys
