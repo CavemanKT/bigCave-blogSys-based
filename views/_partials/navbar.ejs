@@ -1,6 +1,7 @@
 <script>
   $(document).ready(function() {
     $navbar = $('#navbar')
+    $composeModal = $('#compose-modal')
 
     $navbar.on('click', '#signup-btn', function(e) {
       e.preventDefault()
@@ -27,7 +28,90 @@
         window.location.href = '/'
       })
     })
+    const setModal = (html) => {
+      const $modalContent = $composeModal.find('.modal-content')
+      $composeModal.modal('show')
+      $modalContent.html(html)
+    }
+    const setLoadingModal = () => {
+      stModal(
+        `
+          <div class="modal-header">
+            <h5 class="modal-title">Loading</h5>
+            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <div class="text-center">
+              <i class="fas fa-spinner fa-spin"></i>
+            </div>
+          </div>
+        `
+      )
+    }
+//  tmr you need to modify this part..... and then go to test the outcome
+    const errorHandler = function(err, $elem) {
+      switch(err.response.status) {
+        case 406: {
+          $elem.attr('disabled', false)
+
+          const { response: { data: { errors } }} = err
+
+          $('#modal').find('.invalid-feedback').empty()
+          $('#modal').find('.is-invalid').removeClass('is-invalid')
+
+          errors.forEach(function(error) {
+            const { param: fieldName, msg } = error
+            const $input = $('#modal').find(`[data-error-ref="${fieldName}"]`)
+            const $invalidFeedback = $input.siblings('.invalid-feedback')
+
+            $input.addClass('is-invalid')
+            $invalidFeedback.text(msg)
+          })
+          break
+        }
+        case 401: {
+          alert(err.response.data.message)
+          break
+        }
+        default: {
+          console.log(err)
+        }
+      }
+    }
+
+    $navbar.on('click', '#my-profile-btn', function(e) {
+      e.preventDefault()
+      $myProfileModal.modal('show')
+
+      setLoadingModal()
+      axios({
+        method: 'GET',
+        url: '/api/my/profile'
+      }).then((resp) => {
+        setModal(resp.data)
+      })
+    })
+
+    $myProfileModal.on('click', '#my-profile-form-submit', function(e) {
+      e.preventDefault()
+      const $elem = $(e.target)
+      const formData = new FormData($('#my-profile-modal form')[0])
+
+      $elem.attr('disabled', true)
+
+      axios({
+        method: 'PUT',
+        url: '/api/my/profile',
+        data: formData
+      }).then(function(resp) {
+        $myProfileModal.find('#success-message').html('Saved!')
+      }).catch((err) => errorHandler(err, $elem)).finally(() => {
+        $elem.attr('disabled', false)
+      })
+    })
+
   })
+
 </script>
 
 <nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
@@ -50,6 +134,9 @@
           <a id="compose-btn" class="nav-link">Compose</a>
         </li>
         <li class="nav-item">
+          <a id="profile-btn" class="nav-link">My Profile</a>
+        </li>
+        <li class="nav-item">
           <a id="logout-btn" class="nav-link">Logout</a>
         </li>
       <% } else { %>
@@ -67,3 +154,4 @@
 <%- include('./signup-modal') %>
 <%- include('./login-modal') %>
 <%- include('./compose-modal') %>
+<!-- remember to add my-profile-modal -->

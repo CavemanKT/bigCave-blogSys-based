@@ -13,6 +13,8 @@ router.get('/my-posts', require('../controllers/pages/my-posts/get-my-posts'))
 router.post('/my-posts', require('../controllers/api/api-my-posts/create-one-post'))
 // Create                      POST
 
+router.get('/my-posts/new', require('../controllers/api/api-my-posts/get-new-form'))
+
 // router.get('/my-posts/show/:id', require('../controllers/api/api-my-posts/get-one-post'))
 // //show                   GET
 

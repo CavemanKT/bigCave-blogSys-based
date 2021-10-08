@@ -1,0 +1,21 @@
+<form id="compose-form" novalidate>
+  <h3 id="compose-success-message" class="text-success text-center"></h3>
+  <div class="form-group">
+    <label>Title</label>
+    <input
+      class="form-control"
+      type="text"
+      name="postTitle"
+      data-error-ref="postTitle"
+      required
+    >
+    <div class="invalid-feedback"></div>
+  </div>
+
+  <div class="form-group">
+    <label>Content</label>
+    <textarea class="form-control" name="postContent" rows="5" cols="30"></textarea>
+    <div class="invalid-feedback"></div>
+  </div>
+
+</form>
