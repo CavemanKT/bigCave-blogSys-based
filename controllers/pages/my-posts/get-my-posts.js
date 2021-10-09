@@ -3,7 +3,7 @@ const { Post } = require('../../../models')  // models
 
 const myPosts = async function(req, res) {
   const { locals: { currentUser } } = res
-  const limit = 6
+  const limit = 15
   const results = await Post.findAndCountAll({
     where: {
       UserId: currentUser.id

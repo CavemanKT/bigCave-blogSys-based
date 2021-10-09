@@ -5,8 +5,8 @@
     <input
       class="form-control"
       type="text"
-      name="postTitle"
-      data-error-ref="postTitle"
+      name="title"
+      data-error-ref="title"
       required
     >
     <div class="invalid-feedback"></div>
@@ -14,7 +14,13 @@
 
   <div class="form-group">
     <label>Content</label>
-    <textarea class="form-control" name="postContent" rows="5" cols="30"></textarea>
+    <textarea class="form-control"
+    name="content"
+    rows="5"
+    cols="30"
+    type="text"
+    data-error-ref="content"
+    required></textarea>
     <div class="invalid-feedback"></div>
   </div>
 

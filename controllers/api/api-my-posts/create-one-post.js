@@ -1,7 +1,10 @@
 const { body } = require('express-validator')
 const MulterParser = require('../../../services/MulterParser')
 
-const { authenticateCurrentUserByToken, checkValidation } = require('../../_helpers')
+const {
+  authenticateCurrentUserByToken,
+  checkValidation
+} = require('../../_helpers')
 
 const { Post } = require('../../../models')  // models
 
@@ -11,8 +14,12 @@ const permittedParams = [
 ]
 
 const validation = [
-  body('title').isString().withMessage('Title must be a String or Number').notEmpty().withMessage('Title is Required'),
-  body('content').isString().withMessage('Content must be a String or Number').notEmpty().withMessage('Content is Required'),
+  body('title')
+    .isString().withMessage('Title must be a String')
+    .notEmpty().withMessage('Title is Required'),
+  body('content')
+    .isString().withMessage('Content must be a String')
+    .notEmpty().withMessage('Content is Required'),
 ]
 
 const createMyPosts = async function(req, res) {
@@ -20,7 +27,9 @@ const createMyPosts = async function(req, res) {
 // create data
   const { locals: { currentUser } } = res
   const { body: postParams } = req
-  console.log('postParams: ', postParams);
+  // console.log('postParams: ', postParams);
+  console.log(currentUser.id);
+
   const newPost = await Post.create({
     ...postParams,
   }, {
@@ -30,14 +39,13 @@ const createMyPosts = async function(req, res) {
     }
   })
 
-console.log('create');
-
+  newPost.setUser(currentUser)   // to set the UserId
 
   // find data
-  const limit = 6
+  const limit = 15
   const results = await Post.findAndCountAll({
     order: [['createdAt', 'DESC']],
-    limit,
+    limit
   })
 
   res.render('pages/all-posts/home', {

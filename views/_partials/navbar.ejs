@@ -34,11 +34,11 @@
       $modalContent.html(html)
     }
     const setLoadingModal = () => {
-      stModal(
+      setModal(
         `
           <div class="modal-header">
             <h5 class="modal-title">Loading</h5>
-            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <div class="modal-body">
             <div class="text-center">
@@ -55,13 +55,16 @@
           $elem.attr('disabled', false)
 
           const { response: { data: { errors } }} = err
+          console.log('406');
+          console.log(errors);
 
-          $('#modal').find('.invalid-feedback').empty()
-          $('#modal').find('.is-invalid').removeClass('is-invalid')
+          $('#compose-modal').find('.invalid-feedback').empty()
+          $('#compose-modal').find('.is-invalid').removeClass('is-invalid')
 
           errors.forEach(function(error) {
             const { param: fieldName, msg } = error
-            const $input = $('#modal').find(`[data-error-ref="${fieldName}"]`)
+            console.log(fieldName, msg);
+            const $input = $('#compose-modal').find(`[data-error-ref="${fieldName}"]`)
             const $invalidFeedback = $input.siblings('.invalid-feedback')
 
             $input.addClass('is-invalid')
@@ -70,6 +73,7 @@
           break
         }
         case 401: {
+          console.log('401');
           alert(err.response.data.message)
           break
         }
@@ -79,34 +83,38 @@
       }
     }
 
-    $navbar.on('click', '#my-profile-btn', function(e) {
+    $navbar.on('click', '#compose-btn', function(e) {
       e.preventDefault()
-      $myProfileModal.modal('show')
+      $composeModal.modal('show')
 
       setLoadingModal()
+
+      // GET a new form
       axios({
         method: 'GET',
-        url: '/api/my/profile'
+        url: '/api/my-posts/new'
       }).then((resp) => {
         setModal(resp.data)
       })
     })
 
-    $myProfileModal.on('click', '#my-profile-form-submit', function(e) {
+    $composeModal.on('click', '#compose-form-submit', function(e) {
       e.preventDefault()
       const $elem = $(e.target)
-      const formData = new FormData($('#my-profile-modal form')[0])
+      const formData = new FormData($('#compose-modal form')[0])
 
       $elem.attr('disabled', true)
 
       axios({
-        method: 'PUT',
-        url: '/api/my/profile',
+        method: 'POST',
+        url: '/api/my-posts',
         data: formData
       }).then(function(resp) {
-        $myProfileModal.find('#success-message').html('Saved!')
+
+        $composeModal.find('#compose-success-message').html('Submitted!')
       }).catch((err) => errorHandler(err, $elem)).finally(() => {
         $elem.attr('disabled', false)
+
       })
     })
 
@@ -115,16 +123,16 @@
 </script>
 
 <nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/">Daily Journal</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+  <a class="navbar-brand ms-3" href="/">Daily Journal</a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="justify-content-end collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/">Browse All</a>
-      </li>
+    <ul class="navbar-nav ml-auto me-3">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Browse All</a>
+        </li>
       <!-- currentUser -->
       <% if (currentUser) { %>
         <li class="nav-item">

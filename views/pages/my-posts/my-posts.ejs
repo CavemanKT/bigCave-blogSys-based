@@ -2,12 +2,20 @@
 <%- contentFor('styles') %>
 <%- contentFor('scripts') %>
 <%- contentFor('body') %>
+<!-- get the User's fullname in this page -->
   <h1>My Posts</h1>
   <br>
-  <% posts.forEach(post => { %>
-    <h1><%= post.title %></h1>
-    <p>
-      <%= `${post.content.substring(0, 100)}... ` %>
-      <a href="/onePost/<%=post.title%>">Read More</a>
-    </p>
-  <% }); %>
+  <!-- Loader -->
+  <div class="loader" id="loader" hidden>
+      <img src="../../../public/img/loader.svg" alt="Loading">
+  </div>
+  <div class="posts-container" id="posts-container">
+    <% posts.forEach(post => { %>
+      <h1><%= post.title %></h1>
+      <p>
+        <%= `${post.content.substring(0, 100)}... ` %>
+        <a href="/onePost/<%=post.title%>">Read More</a>
+      </p>
+    <% }); %>
+  </div>
+<script src="../../../public/js/infinity-scroll.js"></script>
