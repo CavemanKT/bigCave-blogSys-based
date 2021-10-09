@@ -10,7 +10,44 @@ html {
 
     margin: 0;
 
+    // navigation
+    .navbar {
+      .navbar-brand {
+        font-size: 2.5rem;
+      }
 
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border: 0;
+      border-radius: 0;
+      margin-bottom: 0;
+
+      letter-spacing: 5px;
+    }
+
+    .navbar-nav {
+      li {
+        font-size: 1.4rem;
+
+        .nav-link {
+          margin-left: 10px;
+          cursor: pointer;
+        }
+
+        a:hover {
+          color: #1abc9c !important;
+        }
+      }
+    }
+
+    // navigation toggle collapse
+    @media screen and (max-width: 991px) {
+      #navbarSupportedContent {
+        text-align: right;
+      }
+    }
+
+    // main content
     h1 {
       font-family: Bebas Neue,
         sans-serif;
@@ -44,6 +81,17 @@ html {
       margin: 10px 30%;
     }
 
+    /* Media Query: Large Smartphone */
+    @media screen and (max-width: 600px) {
+      h1 {
+        font-size: 20px;
+      }
+
+      .posts-container {
+        margin: 10px;
+      }
+    }
+
     .text-decoration-through {
       text-decoration: line-through;
     }
@@ -54,40 +102,8 @@ html {
 
     }
 
-    .navbar {
-      .navbar-brand {
-        font-size: 2.5rem;
-      }
 
-      padding-top: 15px;
-      padding-bottom: 15px;
-      border: 0;
-      border-radius: 0;
-      margin-bottom: 0;
 
-      letter-spacing: 5px;
-    }
-
-    .navbar-nav {
-      li {
-        font-size: 1.4rem;
-
-        .nav-link {
-          margin-left: 10px;
-          cursor: pointer;
-        }
-
-        a:hover {
-          color: #1abc9c !important;
-        }
-      }
-    }
-
-    @media screen and (max-width: 991px) {
-      #navbarSupportedContent {
-        text-align: right;
-      }
-    }
 
 
     .footer-padding {
