@@ -1,3 +1,4 @@
+const cheerio = require('cheerio');
 // Libraries used to create the server
 require('dotenv').config()
 const express = require('express')
@@ -36,6 +37,8 @@ app.use(express.static('public'))
 app.use('/bootstrap',  express.static('node_modules/bootstrap/dist/js'))
 app.use('/jquery',  express.static('node_modules/jquery/dist'))
 app.use('/axios',  express.static('node_modules/axios/dist'))
+// app.use('/requirejs', express.static('node_module/requirejs/bin/r.js'))
+// cheerio // jsdom
 
 // Parse url queries and json to object to be used in req.query and req.body
 app.use(express.urlencoded({ extended: true }))

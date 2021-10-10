@@ -27,8 +27,8 @@ const createMyPosts = async function(req, res) {
 // create data
   const { locals: { currentUser } } = res
   const { body: postParams } = req
-  // console.log('postParams: ', postParams);
-  console.log(currentUser.id);
+
+
 
   const newPost = await Post.create({
     ...postParams,
@@ -41,16 +41,9 @@ const createMyPosts = async function(req, res) {
 
   newPost.setUser(currentUser)   // to set the UserId
 
-  // find data
-  const limit = 15
-  const results = await Post.findAndCountAll({
-    order: [['createdAt', 'DESC']],
-    limit
-  })
+  // the page will be located to /api/my-posts using views/_partials/navbar.ejs (window.location.href)
 
-  res.render('pages/all-posts/home', {
-    posts: results.rows
-  })
+  res.redirect('/api/my-posts')
 }
 
 module.exports = [

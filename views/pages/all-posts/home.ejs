@@ -3,6 +3,7 @@
 <%- contentFor('styles') %>
 
 <%- contentFor('scripts') %>
+<script src="/js/infinity-scroll.js" defer></script>
 
 <%- contentFor('body') %>
   <h1>World</h1>
@@ -10,16 +11,17 @@
   <br>
   <!-- Loader -->
   <div class="loader" id="loader" hidden>
-      <img src="../../../public/img/loader.svg" alt="Loading">
+      <img src="/img/loader.svg" alt="Loading">
   </div>
 
   <div class="posts-container" id="posts-container">
     <% posts.forEach(post => { %>
-      <h1><%= post.title %></h1>
-      <p>
-        <%= `${post.content.substring(0, 100)}... ` %>
-        <a href="/onePost/<%=post.title%>">Read More</a>
-      </p>
-    <% }); %>
+      <div class="individual-post">
+        <h1><%= post.title %></h1>
+        <p>
+          <%= `${post.content.substring(0, 500)}... ` %>
+          <a href="/onePost/<%=post.title%>">Read More</a>
+        </p>
+      </div>
+      <% }); %>
   </div>
-<script src="../../../public/js/infinity-scroll.js"></script>

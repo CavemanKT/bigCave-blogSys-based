@@ -110,8 +110,8 @@
         url: '/api/my-posts',
         data: formData
       }).then(function(resp) {
-
         $composeModal.find('#compose-success-message').html('Submitted!')
+        window.location.href = '/api/my-posts'
       }).catch((err) => errorHandler(err, $elem)).finally(() => {
         $elem.attr('disabled', false)
 
