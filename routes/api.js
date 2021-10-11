@@ -15,8 +15,8 @@ router.post('/my-posts', require('../controllers/api/api-my-posts/create-one-pos
 
 router.get('/my-posts/new', require('../controllers/api/api-my-posts/get-new-form'))
 
-// router.get('/my-posts/show/:id', require('../controllers/api/api-my-posts/get-one-post'))
-// //show                   GET
+router.get('/my-posts/show/:id', require('../controllers/api/api-my-posts/get-one-post'))
+//show                   GET
 
 router.delete('/my-posts/:id', require('../controllers/api/api-my-posts/delete-one-post'))
 //  DESTROY                 DELETE
@@ -27,6 +27,7 @@ router.delete('/my-posts/:id', require('../controllers/api/api-my-posts/delete-o
 // router.get('/my-posts/:id/edit', require('../controllers/api/api-my-posts/edit-one-post'))
 // // get the edit form to update   GET
 
+router.get('/api/my-posts/:id/reply', require('../controllers/api/api-my-posts/addComments'))
 
 // My Profile
 router.get('/my/profile', require('../controllers/api/my-profile/edit'))

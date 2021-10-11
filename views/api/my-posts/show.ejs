@@ -1,4 +1,45 @@
-<%- contentFor('meta') %>
-<%- contentFor('styles') %>
-<%- contentFor('scripts') %>
-<%- contentFor('body') %>
+<div class="modal-header">
+  <h5 class="modal-title"><span><%= `${user.firstName} ${user.lastName}` %></span> wrote </h5>
+  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+  <div class="text-center">
+    <!-- post contents -->
+    <h1 class="mb-3"><%= post.title %></h1>
+    <p class="mb-3"><%= post.content%></p>
+
+    <!-- comment input -->
+    <form id="comment-form" novalidate>
+
+      <div class="form-floating">
+        <textarea class="form-control"
+        placeholder="Leave a comment here"
+        id="comment"
+        name="comment"
+        style="height: 100px"
+        type="text"
+        data-error-ref="content"
+        required
+        ></textarea>
+        <label for="comment">Comments</label>
+        <div class="invalid-feedback"></div>
+      </div>
+
+    </form>
+
+    <button type="button" class="reply-btn btn btn-primary btn-lg mt-3" data-method="POST" data-url="/api/my-posts/<%= post.id %>/reply">Reply</button>
+    <!-- comments exhibition -->
+    <% if (comments.length > 0) { %>
+      <ul class="list-group">
+        <% comments.forEach(function(item) { %>
+          <li class="list-group-item">
+            <%= item.content %>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <div>No Comment</div>
+    <% } %>
+  </div>
+</div>

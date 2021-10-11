@@ -15,7 +15,7 @@ module.exports = function(format) {
       order: [['createdAt', 'DESC']]
     })
 
-    if (!wishlist) {
+    if (!post) {
       if (format === 'modal') {
         return res.render('api/my-post/not-found', { layout: false })
       }

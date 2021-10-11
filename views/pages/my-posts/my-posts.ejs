@@ -1,27 +1,30 @@
 <%- contentFor('meta') %>
 <%- contentFor('styles') %>
 <%- contentFor('scripts') %>
+<script src="/js/my-posts/index-control.js" defer></script>
 <!-- <script src="/js/infinity-scroll.js" defer></script> -->
 <%- contentFor('body') %>
-<!-- get the User's fullname in this page -->
-  <h1><%= FullName %>'s Posts</h1>
-  <br>
-  <!-- Loader -->
-  <div class="loader" id="loader" hidden>
-      <img src="/img/loader.svg" alt="Loading">
-  </div>
-  <div class="posts-container" id="posts-container">
-    <% posts.forEach(post => { %>
-      <div class="individual-post">
-        <h1><%= post.title %></h1>
-        <div class="my-1">
-          <button class="edit-btn btn btn-info btn-sm" data-url="/api/my-posts/<%= post.id %>/edit" data-method="GET"><i class="fas fa-edit"></i></button>
-          <button class="delete-btn btn btn-danger btn-sm" data-url="/api/my-posts/<%= post.id %>" data-method="DELETE"><i class="fas fa-trash"></i></button>
+<div id="posts-index" class="posts-index">
+  <!-- get the User's fullname in this page -->
+    <h1><%= FullName %>'s Posts</h1>
+    <br>
+    <!-- Loader -->
+    <div class="loader" id="loader" hidden>
+        <img src="/img/loader.svg" alt="Loading">
+    </div>
+    <div class="posts-container" id="posts-container">
+      <% posts.forEach(post => { %>
+        <div class="individual-post">
+          <div class="my-1">
+            <h1><%= post.title %></h1>
+            <button class="edit-btn btn btn-info btn-sm" data-url="/api/my-posts/<%= post.id %>/edit" data-method="GET"><i class="fas fa-edit" style="pointer-events: none;"></i></button>
+            <button class="delete-btn btn btn-danger btn-sm" data-url="/api/my-posts/<%= post.id %>" data-method="DELETE"><i class="fas fa-trash" style="pointer-events: none;"></i></button>
+            <p>
+              <%= `${post.content.substring(0, 500)}... ` %>
+              <a class="show-btn font-weight-bold" data-url="/api/my-posts/show/<%= post.id %> " data-method="GET">Read More</a>
+            </p>
+          </div>
         </div>
-        <p>
-          <%= `${post.content.substring(0, 500)}... ` %>
-          <a href="/onePost/<%=post.title%>">Read More</a>
-        </p>
-      </div>
-      <% }); %>
-  </div>
+        <% }); %>
+    </div>
+</div>

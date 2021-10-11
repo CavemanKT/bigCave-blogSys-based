@@ -23,7 +23,7 @@ const myPosts = async function(req, res) {
       id: currentUser.id
     }
   })
-  let fullname = resultOfOneUser.firstName + resultOfOneUser.lastName;
+  let fullname = `${resultOfOneUser.firstName} ${resultOfOneUser.lastName}`
 // fetch my own posts data from db regarding to the currentUser
 
   res.render('pages/my-posts/my-posts', {
