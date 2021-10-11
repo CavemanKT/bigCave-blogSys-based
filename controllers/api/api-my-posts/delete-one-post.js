@@ -1,7 +1,13 @@
-const homePage = function(req, res) {
-// fetch all the posts data from db regardless of the currentUser
+const { authenticateCurrentUserByToken , myPost: { getCurrentUserPostById } } = require('../../_helpers')
+const { Comment } = require('../../../models')
 
-  res.render('pages/all-posts/home', {posts: postsParams})
+
+const destroyMyPost = async function(req, res) {
+  const { locals: { currentPost } } = res
+  // await currentPost.setComments([])
+  await currentPost.destroy()
+  // await Comment.destroy({ where: { PostId: null } })
+  res.status(204).json()
 }
 
-module.exports = [homePage]
+module.exports = [authenticateCurrentUserByToken('json'), getCurrentUserPostById('json'), destroyMyPost]

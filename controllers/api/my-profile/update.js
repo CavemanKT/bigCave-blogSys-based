@@ -18,17 +18,19 @@ const validation = [
 ]
 
 const apiMyProfileUpdate = async function(req, res) {
+  console.log('hi');
   const { locals: { currentUser } } = res
 
   const newInfo = { ...req.body }
-
   if (req.file && req.file.location) {
     newInfo.avatar = req.file.location
   }
+  console.log(currentUser, newInfo);
 
-  await currentUser.update(newInfo, { fields: permittedChangeParams })
+  console.log(await currentUser.update(newInfo, { fields: permittedChangeParams }))
 
   res.status(204).json()
+
 }
 
 module.exports = [

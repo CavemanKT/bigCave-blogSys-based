@@ -1,10 +1,10 @@
 <%- contentFor('meta') %>
 <%- contentFor('styles') %>
 <%- contentFor('scripts') %>
-<script src="/js/infinity-scroll.js" defer></script>
+<!-- <script src="/js/infinity-scroll.js" defer></script> -->
 <%- contentFor('body') %>
 <!-- get the User's fullname in this page -->
-  <h1>My Posts</h1>
+  <h1><%= FullName %>'s Posts</h1>
   <br>
   <!-- Loader -->
   <div class="loader" id="loader" hidden>
@@ -14,6 +14,10 @@
     <% posts.forEach(post => { %>
       <div class="individual-post">
         <h1><%= post.title %></h1>
+        <div class="my-1">
+          <button class="edit-btn btn btn-info btn-sm" data-url="/api/my-posts/<%= post.id %>/edit" data-method="GET"><i class="fas fa-edit"></i></button>
+          <button class="delete-btn btn btn-danger btn-sm" data-url="/api/my-posts/<%= post.id %>" data-method="DELETE"><i class="fas fa-trash"></i></button>
+        </div>
         <p>
           <%= `${post.content.substring(0, 500)}... ` %>
           <a href="/onePost/<%=post.title%>">Read More</a>

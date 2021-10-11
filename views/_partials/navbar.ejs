@@ -2,6 +2,7 @@
   $(document).ready(function() {
     $navbar = $('#navbar')
     $composeModal = $('#compose-modal')
+    $myProfileModal = $('#my-profile-modal')
 
     $navbar.on('click', '#signup-btn', function(e) {
       e.preventDefault()
@@ -18,6 +19,7 @@
       $('#compose-modal').modal('show')
     })
 
+
     $navbar.on('click', '#logout-btn', function(e) {
       e.preventDefault()
 
@@ -28,6 +30,7 @@
         window.location.href = '/'
       })
     })
+
     const setModal = (html) => {
       const $modalContent = $composeModal.find('.modal-content')
       $composeModal.modal('show')
@@ -48,6 +51,32 @@
         `
       )
     }
+
+    const setMyProfileModal = (html) => {
+      const $modalContentMyProfile = $myProfileModal.find('.modal-content')
+
+      $myProfileModal.modal('show')
+      $modalContentMyProfile.html(html)
+    }
+
+    const setLoadingModalMyProfile = () => {
+      setMyProfileModal(
+        `
+          <div class="modal-header">
+            <h5 class="modal-title">Loading</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="text-center">
+              <i class="fas fa-spinner fa-spin"></i>
+            </div>
+          </div>
+        `
+      )
+    }
+
+
+
 //  tmr you need to modify this part..... and then go to test the outcome
     const errorHandler = function(err, $elem) {
       switch(err.response.status) {
@@ -83,6 +112,37 @@
       }
     }
 
+
+    const errorHandlerMyProfile = function(err, $elem) {
+      switch(err.response.status) {
+        case 406: {
+          $elem.attr('disabled', false)
+
+          const { response: { data: { errors } }} = err
+          console.log('406', err);
+          $('#my-profile-modal').find('.invalid-feedback').empty()
+          $('#my-profile-modal').find('.is-invalid').removeClass('is-invalid')
+
+          errors.forEach(function(error) {
+            const { param: fieldName, msg } = error
+            const $input = $('#my-profile-modal').find(`[data-error-ref="${fieldName}"]`)
+            const $invalidFeedback = $input.siblings('.invalid-feedback')
+
+            $input.addClass('is-invalid')
+            $invalidFeedback.text(msg)
+          })
+          break
+        }
+        case 401: {
+          alert(err.response.data.message)
+          break
+        }
+        default: {
+          console.log(err)
+        }
+      }
+    }
+
     $navbar.on('click', '#compose-btn', function(e) {
       e.preventDefault()
       $composeModal.modal('show')
@@ -97,6 +157,9 @@
         setModal(resp.data)
       })
     })
+
+
+
 
     $composeModal.on('click', '#compose-form-submit', function(e) {
       e.preventDefault()
@@ -118,7 +181,39 @@
       })
     })
 
+    $navbar.on('click', '#my-profile-btn', (e) => {
+      e.preventDefault()
+      setLoadingModalMyProfile()
+      axios({
+        method: 'GET',
+        url: '/api/my/profile'
+      }).then((res) => {
+        setMyProfileModal(res.data)
+      })
+    })
+
+
+    $myProfileModal.on('click', '#my-profile-form-submit', function(e) {
+      e.preventDefault()
+      const $elem = $(e.target)
+      const formData = new FormData($('#my-profile-modal form')[0])
+      $elem.attr('disabled', true)
+
+      axios({
+        method: 'PUT',
+        url: '/api/my/profile',
+        data: formData
+      }).then(function(resp) {
+        $myProfileModal.find('#my-profile-success-message').html('Saved!')
+        window.location.href = '/api/my-posts'
+      }).catch((err) => errorHandlerMyProfile(err, $elem)).finally(() => {
+        $elem.attr('disabled', false)
+        console.log('disabled the btn');
+      })
+    })
   })
+
+
 
 </script>
 
@@ -142,7 +237,7 @@
           <a id="compose-btn" class="nav-link">Compose</a>
         </li>
         <li class="nav-item">
-          <a id="profile-btn" class="nav-link">My Profile</a>
+          <a id="my-profile-btn" class="nav-link">My Profile</a>
         </li>
         <li class="nav-item">
           <a id="logout-btn" class="nav-link">Logout</a>
@@ -162,4 +257,4 @@
 <%- include('./signup-modal') %>
 <%- include('./login-modal') %>
 <%- include('./compose-modal') %>
-<!-- remember to add my-profile-modal -->
+<%- include('./my-profile-modal') %>

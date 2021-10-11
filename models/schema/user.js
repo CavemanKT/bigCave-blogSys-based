@@ -14,6 +14,18 @@ module.exports = function(sequelize, DataTypes) {
     passwordHash: {
       type: DataTypes.STRING(255),
       allowNull: false
+    },
+    firstName: {
+      type:DataTypes.STRING(255),
+      allowNull: true
+    },
+    lastName: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    avatar: {
+      type: DataTypes.STRING(255),
+      allowNull: true
     }
   }, {
     sequelize,

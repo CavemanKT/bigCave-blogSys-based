@@ -1,0 +1,71 @@
+<script>
+  $(document).ready(() => {
+    bsCustomFileInput.init()
+
+    const $profileAvatarInput = $('#profile-avatar-input')
+    const $profileAvatarPreview = $('#profile-avatar-preview')
+
+    $profileAvatarInput.on('change', (e) => {
+      const $elem = $(e.target)
+      const [file] = $elem.prop('files')
+
+      if (file) {
+        $profileAvatarPreview.removeClass('d-none').attr('src', URL.createObjectURL(file))
+      } else {
+        $profileAvatarPreview.addClass('d-none')
+      }
+    })
+  })
+</script>
+
+<form id="my-profile-form" novalidate>
+  <h3 id="my-profile-success-message" class="text-success text-center"></h3>
+  <div class="form-group">
+    <label>First Name</label>
+    <input
+      class="form-control"
+      type="text"
+      name="firstName"
+      data-error-ref="firstName"
+      value="<%= currentUser.firstName %>"
+      required
+    >
+    <div class="invalid-feedback"></div>
+  </div>
+
+  <div class="form-group mt-4">
+    <label>Last name</label>
+    <input
+      class="form-control"
+      type="text"
+      name="lastName"
+      data-error-ref="lastName"
+      value="<%= currentUser.lastName %>"
+      required
+    >
+    <div class="invalid-feedback"></div>
+  </div>
+
+  <div class="form-group mt-4">
+    <label class="d-block">Avatar</label>
+
+    <img
+      id="profile-avatar-preview"
+      class="<%= currentUser.avatar ? '' : 'd-none' %>"
+      src="<%= currentUser.avatar %>"
+      alt="Avatar"
+      style="width: 300px; height: auto;"
+    >
+
+    <div class="mt-2">
+      <input
+        id="profile-avatar-input"
+        class="form-control"
+        type="file"
+        name="avatar"
+      >
+
+      <div class="invalid-feedback"></div>
+    </div>
+  </div>
+</form>

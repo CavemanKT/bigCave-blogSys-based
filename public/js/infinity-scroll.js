@@ -1,14 +1,14 @@
 const $postsContainer = $('#posts-container')
 const $loader = $('#loader')
 
-let limit = 5
+let limit = 5  // big problem!!!
 let data = null
 console.log('infinite scroll');
 
 let triggered = false
 
 const displayPosts = () => {
-
+  // big problem!!!
 }
 
 const getPosts = async () => {

@@ -18,8 +18,8 @@ router.get('/my-posts/new', require('../controllers/api/api-my-posts/get-new-for
 // router.get('/my-posts/show/:id', require('../controllers/api/api-my-posts/get-one-post'))
 // //show                   GET
 
-// router.delete('/my-posts/:id', require('../controllers/api/api-my-posts/delete-one-post'))
-// //  DESTROY                 DELETE
+router.delete('/my-posts/:id', require('../controllers/api/api-my-posts/delete-one-post'))
+//  DESTROY                 DELETE
 
 // router.put('/my-posts/:id', require('../controllers/api/api-my-posts/update-one-post'))
 // // update one post            PUT
@@ -29,8 +29,8 @@ router.get('/my-posts/new', require('../controllers/api/api-my-posts/get-new-for
 
 
 // My Profile
-// router.get('/my/profile', require('../controllers/api/my-profile/edit'))
-// router.put('/my/profile', require('../controllers/api/my-profile/update'))
+router.get('/my/profile', require('../controllers/api/my-profile/edit'))
+router.put('/my/profile', require('../controllers/api/my-profile/update'))
 
 
 
