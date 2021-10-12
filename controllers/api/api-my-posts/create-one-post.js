@@ -7,11 +7,12 @@ const {
 } = require('../../_helpers')
 
 const { Post } = require('../../../models')  // models
+const { Comment } = require('../../../models')
 
-const permittedParams = [
-  'title',
-  'content'
-]
+const permittedParams = {
+  Post: ['title', 'content'],
+  Comments: ['content']
+}
 
 const validation = [
   body('title')
@@ -28,12 +29,10 @@ const createMyPosts = async function(req, res) {
   const { locals: { currentUser } } = res
   const { body: postParams } = req
 
-
-
   const newPost = await Post.create({
     ...postParams,
   }, {
-    fields: permittedParams,
+    fields: permittedParams.Post,
     include: {
       association: Post.Comments
     }

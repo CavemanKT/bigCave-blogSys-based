@@ -7,16 +7,20 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    content: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
     PostId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true
     },
     CommentId: {
       type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    UserId: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    content: {
+      type: DataTypes.TEXT,
       allowNull: true
     }
   }, {

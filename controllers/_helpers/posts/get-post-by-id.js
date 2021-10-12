@@ -10,8 +10,9 @@ module.exports = function(format) {
       },
       order: [['createdAt', 'DESC']]
     })
+    // console.log(id);
 
-    if (!wishlist) {
+    if (!post) {
       if (format === 'modal') {
         return res.render('api/posts/not-found', { layout: false })
       }
@@ -22,7 +23,7 @@ module.exports = function(format) {
     }
 
     res.locals.currentPost = post
-
+    // console.log('post: ', post.UserId);
     next()
   }
 }

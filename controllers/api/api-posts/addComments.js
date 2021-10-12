@@ -4,7 +4,7 @@ const MulterParser = require('../../../services/MulterParser')
 const {
   authenticateCurrentUserByToken,
   checkValidation,
-  myPost:{ getCurrentUserPostById },
+  post: { getPostById }
 } = require('../../_helpers')
 
 const { Post } = require('../../../models')
@@ -28,6 +28,8 @@ const addComments = async function(req, res) {
   const { locals: { currentUser } } = res
   const { body: commentParam } = req
 
+  console.log('hi');
+
   const newComment = await Comment.create({
     ...commentParam,
   }, {
@@ -36,6 +38,7 @@ const addComments = async function(req, res) {
       association: Post.Comments
     }
   })
+
 
   const results = await Comment.findAndCountAll({
     where: {
@@ -46,7 +49,7 @@ const addComments = async function(req, res) {
 
   newComment.setUser(currentUser)   // to set the UserId
   newComment.setPost(currentPost)
-
+  console.log(newComment, currentPost, currentUser);
 
   res.render('api/my-posts/show', {
     comments: results.rows,
@@ -61,6 +64,6 @@ module.exports = [
   authenticateCurrentUserByToken('html'),
   validation,
   checkValidation,
-  getCurrentUserPostById('modal'),
+  getPostById('modal'),
   addComments
 ]

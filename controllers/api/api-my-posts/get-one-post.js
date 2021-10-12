@@ -3,7 +3,7 @@ const { Comment } = require('../../../models')
 
 const showCurrentUser = async function(req, res) {
   const { locals: { currentPost } } = res
-  const { locals: {currentUser} } = res
+  const { locals: { currentUser } } = res
 
   const results = await Comment.findAndCountAll({
     where: {
@@ -12,12 +12,14 @@ const showCurrentUser = async function(req, res) {
     order: [['createdAt', 'DESC']],
     // limit,
   })
-console.log('results.rows: ', results.rows);
+
+  // console.log('results.rows: ', results.rows);
   res.render('api/my-posts/show', {
     comments: results.rows,
     post: currentPost,
     user: currentUser,
-    layout: false })
+    layout: false
+  })
 }
 
-module.exports = [authenticateCurrentUserByToken('json'), getCurrentUserPostById('modal'), showCurrentUser]
+module.exports = [authenticateCurrentUserByToken('html'), getCurrentUserPostById('modal'), showCurrentUser]

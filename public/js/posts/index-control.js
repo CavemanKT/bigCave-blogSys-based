@@ -23,7 +23,6 @@ const setLoadingModal = function() {
 
 const errorHandler = function(err, $elem) {
   if(err){
-    console.log(err.response);
     switch(err.response.status) {
       case 406: {
         $elem.attr('disabled', false)
@@ -61,22 +60,6 @@ const errorHandler = function(err, $elem) {
   }
 }
 
-$('#posts-index, #modal').on('click', '.delete-btn', function(e) {
-  e.preventDefault()
-  const parent = $(e.target).parent('button')[0]
-  const $elem = parent ? $(e.target).parent() : $(e.target)
-  const url = $elem.data('url')
-  // console.log('1:', parent, '2:', $elem, '3: ', $(e.target).parent(), '4:', $(e.target), '5:', url);   // to check if there is url
-  $('#posts-index .delete-btn, #modal .delete-btn').attr('disabled', true)
-
-  axios({ method: 'DELETE', url }).then(function() {
-    $('#modal').modal('hide')
-    $(`#posts-index .delete-btn[data-url="${url}"][data-method="DELETE"]`).parentsUntil('#posts-container').remove()
-  }).catch(errorHandler).then(function() {
-    $('#posts-index .delete-btn, #modal .delete-btn').attr('disabled', false)
-  })
-})
-
 $('#posts-index, #modal').on('click', '.show-btn', (e) => {
   e.preventDefault()
   const parent = $(e.target).parent('button')[0]
@@ -84,6 +67,8 @@ $('#posts-index, #modal').on('click', '.show-btn', (e) => {
   const url = $elem.data('url')
   const method = $elem.data('method')
   setLoadingModal()
+  // console.log('elem:', $elem[0], 'url:', url, 'method:', method);
+
 
   axios({ method, url }).then((res) => {
     setModal(res.data)
@@ -104,7 +89,7 @@ $('#posts-index, #show-modal').on('click', '.reply-btn', function(e) {
 
   axios({ method, url, data: formData }).then(function(res) {
     setModal(res.data)
-    console.log(res.data);
+    console.log('res.data: ',res.data);
     if (method === 'POST') {
       const id = $('#modal').find('.modal-title span').text()
       const title = $('#modal').find('.modal-body h1').text()

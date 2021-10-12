@@ -17,7 +17,7 @@ module.exports = function(format) {
 
     if (!post) {
       if (format === 'modal') {
-        return res.render('api/my-post/not-found', { layout: false })
+        return res.render('api/posts/not-found', { layout: false })
       }
 
       if (format === 'json') {

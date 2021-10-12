@@ -27,7 +27,7 @@
       </div>
     </form>
 
-    <button type="button" class="reply-btn btn btn-primary btn-lg mt-3" data-method="POST" data-url="/api/my-posts/<%= post.id %>/reply">Reply</button>
+    <button type="button" class="reply-btn btn btn-primary btn-lg mt-3" data-method="POST" data-url="/api/posts/<%= post.id %>/reply">Reply</button>
     <!-- comments exhibition -->
     <% if (comments.length > 0) { %>
       <ul class="list-group">

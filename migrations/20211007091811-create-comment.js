@@ -9,14 +9,18 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       content: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.TEXT('long')
       },
       PostId: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.INTEGER
       },
       CommentId: {
+        allowNull: true,
+        type: Sequelize.INTEGER
+      },
+      UserId: {
         allowNull: true,
         type: Sequelize.INTEGER
       },

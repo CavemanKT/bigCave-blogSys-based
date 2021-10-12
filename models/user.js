@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       User.AuthenticityTokens = this.hasMany(models.AuthenticityToken)
       User.Posts = this.hasMany(models.Post)
+      User.Comments = this.hasMany(models.Comment)
     }
   };
   const { tableAttributes } = UserSchema( sequelize, DataTypes )
