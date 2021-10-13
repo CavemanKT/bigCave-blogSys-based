@@ -19,7 +19,7 @@
     <% posts.forEach(post => { %>
       <div class="individual-post mb-5">
         <div class="my-1">
-          <h1><%= post.title %></h1>
+          <h1 class='text-center'><%= post.title %></h1>
           <p>
             <%= `${post.content.substring(0, 500)}... ` %>
             <a class="show-btn font-weight-bold" data-url="/api/posts/show/<%= post.id %>" data-method="GET">Read More</a>

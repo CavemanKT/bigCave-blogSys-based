@@ -4,9 +4,9 @@
 </div>
 
 <div class="modal-body">
-  <div class="text-center">
+  <div class="container">
     <!-- post contents -->
-    <h1 class="mb-3"><%= post.title %></h1>
+    <h1 class="mb-3 text-center"><%= post.title %></h1>
     <p class="mb-3"><%= post.content%></p>
 
     <!-- comment input -->
@@ -27,7 +27,7 @@
       </div>
     </form>
 
-    <button type="button" class="reply-btn btn btn-primary btn-lg mt-3" data-method="POST" data-url="/api/posts/<%= post.id %>/reply">Reply</button>
+    <button type="button" class="reply-btn btn btn-primary btn-lg mt-3 text-center" data-method="POST" data-url="/api/posts/<%= post.id %>/reply">Reply</button>
     <!-- comments exhibition -->
     <% if (comments.length > 0) { %>
       <ul class="list-group">

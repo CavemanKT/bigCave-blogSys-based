@@ -76,6 +76,17 @@ html {
       }
     }
 
+    // my page and main page
+    .container {
+      p {
+        text-indent: 50px;
+      }
+
+      .reply-btn {
+        margin: 20px 44%;
+      }
+    }
+
     // Posts Container
     .posts-container {
       margin: 10px 30%;

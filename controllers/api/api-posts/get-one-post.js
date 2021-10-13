@@ -29,4 +29,4 @@ const showCurrentUser = async function(req, res) {
   })
 }
 
-module.exports = [authenticateCurrentUserByToken('html'), getPostById('modal'), showCurrentUser]
+module.exports = [authenticateCurrentUserByToken('snippet'), getPostById('modal'), showCurrentUser]
