@@ -169,10 +169,13 @@
         data: formData
       }).then(function(resp) {
         $composeModal.find('#compose-success-message').html('Submitted!')
-        window.location.href = '/api/my-posts'
+        setTimeout(() => {
+          window.location.href = '/api/my-posts'
+        }, 1000);
       }).catch((err) => errorHandler(err, $elem)).finally(() => {
-        $elem.attr('disabled', false)
-
+        setTimeout(() => {
+          $elem.attr('disabled', false)
+        }, 1500);
       })
     })
 

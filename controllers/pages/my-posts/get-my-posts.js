@@ -1,15 +1,14 @@
 const { authenticateCurrentUserByToken } = require('../../_helpers')
-const { Post } = require('../../../models')  // models
-const { User } = require('../../../models')  // models
+const { Post } = require('../../../models')
+const { User } = require('../../../models')
 
 const myPosts = async function(req, res) {
   const { locals: { currentUser } } = res
   const { query } = req
-  // console.log(query); // use url to parse the data
   const limit = Number(query.limit) || 5
-  // console.log(query.limit);
 
-  // console.log(currentUser);
+  let fullname = ''
+
   const results = await Post.findAndCountAll({
     where: {
       UserId: currentUser.id
@@ -23,8 +22,13 @@ const myPosts = async function(req, res) {
       id: currentUser.id
     }
   })
-  let fullname = `${resultOfOneUser.firstName} ${resultOfOneUser.lastName}`
-// fetch my own posts data from db regarding to the currentUser
+  console.log(resultOfOneUser.firstName);
+
+  if (resultOfOneUser.firstName == null && resultOfOneUser.lastName == null) {
+    fullname = false
+  } else {
+    fullname = `${resultOfOneUser.firstName} ${resultOfOneUser.lastName}`
+  }
 
   res.render('pages/my-posts/my-posts', {
     posts: results.rows,

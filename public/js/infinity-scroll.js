@@ -1,27 +1,40 @@
 const $postsContainer = $('#posts-container')
 const $loader = $('#loader')
+// $loader.attr('hidden', false)    //use it later
 
-let limit = 5  // big problem!!!
-let data = null
-console.log('infinite scroll');
 
-let triggered = false
 
 const displayPosts = () => {
   // big problem!!!
 }
 
 const getPosts = async () => {
-  limit += 5
-  console.log(limit);
-  axios.get(`/api/my-posts?limit=${limit}`)
-    .then( (res) => {
-      console.log(res.data);
-      // let html = res.data
-      // console.log(html);
-      window.location.href = `/api/my-posts?limit=${limit}`
-      // window.location.reload(true)
+  let $offsetCounter = $('#offset-counter')  // assume it gives 0
+  let num = $offsetCounter.text()
+  num =+ 5
+  console.log(num);
+
+  $('#offset-counter').text(num)
+
+
+  setTimeout(() => {
+    axios({
+      method: 'POST',
+      url: `/offset/${num}`
+    }).then( (res) => {
+      let html = res.data
+      let postsArr = $(html).find('.individual-post')
+      console.log($('#offset-counter').text());
+      // console.log(postArr[0]);
+      console.log(html);
+
+      // postsArr.forEach( (i, post) => {
+        // reverse the order and then prepend to the post container
+      // });
+
     })
+
+  }, 1000);
 
   // try {
   //   const response = await fetch(`http://localhost:3000/api/my-posts?limit=${limit}`)

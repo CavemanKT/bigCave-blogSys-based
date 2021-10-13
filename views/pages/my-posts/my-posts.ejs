@@ -6,7 +6,7 @@
 <%- contentFor('body') %>
 <div id="posts-index" class="posts-index">
   <!-- get the User's fullname in this page -->
-    <h1><%= !(FullName == 'NULL NULL') ? `${FullName}'s` : '<please fill in the profile>' %> Posts</h1>
+    <h1><%= FullName ? `${FullName}'s Posts` : '<please tell us your name in my profile>' %></h1>
     <br>
     <!-- Loader -->
     <div class="loader" id="loader" hidden>

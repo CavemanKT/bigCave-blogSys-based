@@ -10,17 +10,14 @@ const showCurrentUser = async function(req, res) {
       PostId: currentPost.id
     },
     order: [['createdAt', 'DESC']],
-    // limit,
   })
-  // console.log('currentPost.UserId: ', currentPost.UserId);
 
   const postUser = await User.findOne({
     where: {
       id: currentPost.UserId
     }
   })
-  // console.log(postUser.id);
-  // console.log('results.rows: ', results.rows.UserId);
+
   res.render('api/posts/show', {
     comments: results.rows,
     post: currentPost,
