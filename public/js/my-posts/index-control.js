@@ -1,13 +1,10 @@
+
 const $showModal = $('#show-modal')
+const $editModal = $('#edit-modal')
+const $showModalContent = $showModal.find('.modal-content')
+const $editModalContent = $editModal.find('.modal-content')
 
-const setModal = (html) => {
-  const $modalContent = $showModal.find('.modal-content')
-  $showModal.modal('show')
-  $modalContent.html(html)
-}
-
-const setLoadingModal = function() {
-  setModal(`
+const modalHeader = `
     <div class="modal-header">
       <h5 class="modal-title">Loading</h5>
       <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -17,9 +14,24 @@ const setLoadingModal = function() {
         <i class="fas fa-spinner fa-spin"></i>
       </div>
     </div>
-  `)
+  `
+
+const setShowModal = (html) => {
+  $showModal.modal('show')
+  $showModalContent.html(html)
+}
+const setEditModal = (html) => {
+  $editModal.modal('show')
+  $editModalContent.html(html)
 }
 
+const setLoadingShowModal = function() {
+  setShowModal(modalHeader)
+}
+
+const setLoadingEditModal = () => {
+  setEditModal(modalHeader)
+}
 
 const errorHandler = function(err, $elem) {
   if(err){
@@ -83,10 +95,10 @@ $('#posts-index, #modal').on('click', '.show-btn', (e) => {
   const $elem = parent ? $(e.target).parent() : $(e.target)
   const url = $elem.data('url')
   const method = $elem.data('method')
-  setLoadingModal()
+  setLoadingShowModal()
 
   axios({ method, url }).then((res) => {
-    setModal(res.data)
+    setShowModal(res.data)
   }).catch((err) => errorHandler(err, $elem))
 })
 
@@ -103,7 +115,38 @@ $('#posts-index, #show-modal').on('click', '.reply-btn', function(e) {
   $elem.attr('disabled', true)
 
   axios({ method, url, data: formData }).then(function(res) {
-    setModal(res.data)
+    setShowModal(res.data)
+
+  }).catch((err) => errorHandler(err, $elem))
+})
+
+$('#posts-index, #edit-modal').on('click', '.edit-btn', (e) => {
+  e.preventDefault()
+  const $elem = $(e.target)
+  const url = $elem.data('url')
+  const method = $elem.data('method')
+  setLoadingEditModal()
+
+  axios({ method, url }).then((res) => {
+    setEditModal(res.data)
+  }).catch((err) => errorHandler(err, $elem))
+})
+
+
+$('#posts-index, #edit-modal').on('click', '#edit-form-submit', (e) => {
+  e.preventDefault()
+  const $elem = $(e.target)
+  const url = $elem.data('url')
+  const method = $elem.data('method')
+  const formData = new FormData($('#edit-modal #edit-form')[0])
+  $editModal.modal('hide')
+  setLoadingShowModal()
+  $elem.attr('disabled', true)
+
+
+  axios({method, url, data: formData}).then((res) => {
+    // setShowModal(res.data)
+    window.location.reload(true)
 
   }).catch((err) => errorHandler(err, $elem))
 })

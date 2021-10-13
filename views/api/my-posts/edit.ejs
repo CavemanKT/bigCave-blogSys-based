@@ -1,0 +1,11 @@
+<div class="modal-header">
+  <h5 class="modal-title">Compose Your Diary</h5>
+  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+<div class="modal-body">
+  <%- include('_partials/edit-form') %>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+  <button id="edit-form-submit" type="button" class="btn btn-success" data-url="/api/my-posts/<%= post.id %>" data-method="PUT">Submit</button>
+</div>

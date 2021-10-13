@@ -14,10 +14,10 @@
     </div>
     <div class="posts-container" id="posts-container">
       <% posts.forEach(post => { %>
-        <div class="individual-post">
+        <div class="individual-post mb-5">
           <div class="my-1">
             <h1><%= post.title %></h1>
-            <button class="edit-btn btn btn-info btn-sm" data-url="/api/my-posts/<%= post.id %>/edit" data-method="GET"><i class="fas fa-edit" style="pointer-events: none;"></i></button>
+            <button class="edit-btn btn btn-info btn-sm" data-url="/api/my-posts/edit/<%= post.id %>" data-method="GET"><i class="fas fa-edit" style="pointer-events: none;"></i></button>
             <button class="delete-btn btn btn-danger btn-sm" data-url="/api/my-posts/<%= post.id %>" data-method="DELETE"><i class="fas fa-trash" style="pointer-events: none;"></i></button>
             <p>
               <%= `${post.content.substring(0, 500)}... ` %>

@@ -29,14 +29,15 @@ router.get('/my-posts/show/:id', require('../controllers/api/api-my-posts/get-on
 // COMMENT                        POST
 router.post('/my-posts/:id/reply', require('../controllers/api/api-my-posts/addComments'))
 
+// get edit form                  GET
+router.get('/my-posts/edit/:id', require('../controllers/api/api-my-posts/edit-one-post'))
+
 // DESTROY                      DELETE
 router.delete('/my-posts/:id', require('../controllers/api/api-my-posts/delete-one-post'))
 
-// router.put('/my-posts/:id', require('../controllers/api/api-my-posts/update-one-post'))
-// // update one post            PUT
+// UPDATE THE EDIT FORM            PUT
+router.put('/my-posts/:id', require('../controllers/api/api-my-posts/update-one-post'))
 
-// router.get('/my-posts/:id/edit', require('../controllers/api/api-my-posts/edit-one-post'))
-// // get the edit form to update   GET
 
 
 // My Profile =================================================================

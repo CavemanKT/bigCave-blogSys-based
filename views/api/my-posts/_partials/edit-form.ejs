@@ -1,0 +1,30 @@
+<form id="edit-form" novalidate>
+  <h3 id="edit-success-message" class="text-success text-center"></h3>
+  <div class="form-group">
+    <label>Title</label>
+    <input
+      class="form-control"
+      type="text"
+      name="title"
+      data-error-ref="title"
+      placeholder="<%= post.title %>"
+      required
+    >
+    <div class="invalid-feedback"></div>
+  </div>
+
+  <div class="form-group">
+    <label>Content</label>
+    <textarea class="form-control"
+    name="content"
+    rows="5"
+    cols="30"
+    type="text"
+    data-error-ref="content"
+    placeholder="<%= post.content %> "
+    required
+    ></textarea>
+    <div class="invalid-feedback"></div>
+  </div>
+
+</form>

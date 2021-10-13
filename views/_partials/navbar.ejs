@@ -14,11 +14,6 @@
       $('#login-modal').modal('show')
     })
 
-    $navbar.on('click', '#compose-btn', (e) => {
-      e.preventDefault()
-      $('#compose-modal').modal('show')
-    })
-
 
     $navbar.on('click', '#logout-btn', function(e) {
       e.preventDefault()
@@ -259,3 +254,4 @@
 <%- include('./compose-modal') %>
 <%- include('./my-profile-modal') %>
 <%- include('./show-modal') %>
+<%- include('./edit-modal') %>
