@@ -28,8 +28,6 @@ const addComments = async function(req, res) {
   const { locals: { currentUser } } = res
   const { body: commentParam } = req
 
-  console.log('hi');
-
   const newComment = await Comment.create({
     ...commentParam,
   }, {
@@ -49,9 +47,11 @@ const addComments = async function(req, res) {
 
   newComment.setUser(currentUser)   // to set the UserId
   newComment.setPost(currentPost)
-  console.log(newComment, currentPost, currentUser);
 
-  res.render('api/my-posts/show', {
+  results.rows.unshift(newComment)
+
+
+  res.render('api/posts/show', {
     comments: results.rows,
     post: currentPost,
     user: currentUser,

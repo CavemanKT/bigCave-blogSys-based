@@ -46,6 +46,7 @@ const addComments = async function(req, res) {
 
   newComment.setUser(currentUser)   // to set the UserId
   newComment.setPost(currentPost)
+  results.rows.unshift(newComment)
 
 
   res.render('api/my-posts/show', {

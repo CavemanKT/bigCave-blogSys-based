@@ -66,7 +66,7 @@ $('#posts-index, #modal').on('click', '.delete-btn', function(e) {
   const parent = $(e.target).parent('button')[0]
   const $elem = parent ? $(e.target).parent() : $(e.target)
   const url = $elem.data('url')
-  // console.log('1:', parent, '2:', $elem, '3: ', $(e.target).parent(), '4:', $(e.target), '5:', url);   // to check if there is url
+
   $('#posts-index .delete-btn, #modal .delete-btn').attr('disabled', true)
 
   axios({ method: 'DELETE', url }).then(function() {
@@ -104,19 +104,6 @@ $('#posts-index, #show-modal').on('click', '.reply-btn', function(e) {
 
   axios({ method, url, data: formData }).then(function(res) {
     setModal(res.data)
-    console.log(res.data);
-    if (method === 'POST') {
-      const id = $('#modal').find('.modal-title span').text()
-      const title = $('#modal').find('.modal-body h1').text()
-      if (id) {
-        $('#wishlists-list').prepend(`
-          <li class="my-1">
-            <a class="show-btn font-weight-bold" data-url="/api/my/wishlists/${id}" data-method="GET">${title}</a>
-            <button class="edit-btn btn btn-info btn-sm" data-url="/api/my/wishlists/${id}/edit" data-method="GET"><i class="fas fa-edit"></i></button>
-            <button class="delete-btn btn btn-danger btn-sm" data-url="/api/my/wishlists/${id}" data-method="DELETE"><i class="fas fa-trash"></i></button>
-          </li>
-        `)
-      }
-    }
+
   }).catch((err) => errorHandler(err, $elem))
 })

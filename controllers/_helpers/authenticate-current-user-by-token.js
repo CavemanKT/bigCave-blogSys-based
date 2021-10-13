@@ -10,7 +10,7 @@ module.exports = function(format) {
       }
 
       if (format === 'html') {
-        return res.render('not-found', { message: 'Please Log In First!' })
+        return res.render('api/posts/not-found', { message: 'Please Log In First!', layout: false })
       }
     }
 

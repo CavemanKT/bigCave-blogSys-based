@@ -18,7 +18,6 @@ const validation = [
 ]
 
 const apiMyProfileUpdate = async function(req, res) {
-  console.log('hi');
   const { locals: { currentUser } } = res
 
   const newInfo = { ...req.body }

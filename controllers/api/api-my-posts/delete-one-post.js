@@ -4,9 +4,10 @@ const { Comment } = require('../../../models')
 
 const destroyMyPost = async function(req, res) {
   const { locals: { currentPost } } = res
-  // await currentPost.setComments([])
+  const { params: { id } } = req
+
   await currentPost.destroy()
-  // await Comment.destroy({ where: { PostId: null } })
+  await Comment.destroy({ where: { PostId: id } })
   res.status(204).json()
 }
 

@@ -76,32 +76,18 @@ $('#posts-index, #modal').on('click', '.show-btn', (e) => {
 })
 
 // comment btn
-// for universal form
+// for universal form                      mission:!!! prepend the comment
 $('#posts-index, #show-modal').on('click', '.reply-btn', function(e) {
   e.preventDefault()
   const $elem = $(e.target)
   const url = $elem.data('url')
   const method = $elem.data('method')
   const formData = new FormData($('#show-modal #comment-form')[0])
-  console.log('elem:', $elem[0], 'url:', url, 'method:', method, 'formData: ', formData);
+  console.log('elem:', $elem[0], 'url:', url, 'method:', method, 'formData: ',formData);
 
   $elem.attr('disabled', true)
 
   axios({ method, url, data: formData }).then(function(res) {
     setModal(res.data)
-    console.log('res.data: ',res.data);
-    if (method === 'POST') {
-      const id = $('#modal').find('.modal-title span').text()
-      const title = $('#modal').find('.modal-body h1').text()
-      if (id) {
-        $('#wishlists-list').prepend(`
-          <li class="my-1">
-            <a class="show-btn font-weight-bold" data-url="/api/my/wishlists/${id}" data-method="GET">${title}</a>
-            <button class="edit-btn btn btn-info btn-sm" data-url="/api/my/wishlists/${id}/edit" data-method="GET"><i class="fas fa-edit"></i></button>
-            <button class="delete-btn btn btn-danger btn-sm" data-url="/api/my/wishlists/${id}" data-method="DELETE"><i class="fas fa-trash"></i></button>
-          </li>
-        `)
-      }
-    }
   }).catch((err) => errorHandler(err, $elem))
 })

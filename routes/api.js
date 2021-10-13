@@ -39,7 +39,7 @@ router.delete('/my-posts/:id', require('../controllers/api/api-my-posts/delete-o
 // // get the edit form to update   GET
 
 
-// My Profile
+// My Profile =================================================================
 router.get('/my/profile', require('../controllers/api/my-profile/edit'))
 router.put('/my/profile', require('../controllers/api/my-profile/update'))
 
