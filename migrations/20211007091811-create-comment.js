@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.TEXT('long')
       },
       PostId: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       CommentId: {
