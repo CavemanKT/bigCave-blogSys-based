@@ -1,5 +1,5 @@
 {
-  "name": "your_project_name_here",
+  "name": "bigCave",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
@@ -7,7 +7,7 @@
     "gen-models": "sequelize-auto -o './models/schema' -d blogSys -h localhost -p 5432 -e postgres --cf l --sg true -u postgres -x 12345678",
     "start": "node main.js"
   },
-  "author": "",
+  "author": "KT",
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.925.0",
