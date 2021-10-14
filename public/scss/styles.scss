@@ -77,29 +77,39 @@ html {
     }
 
     // my page and main page
-    .container {
+    .posts-container {
+      margin: 10px 30%;
+
       p {
         text-indent: 50px;
+        font-size: 20px;
       }
 
       .reply-btn {
         margin: 20px 44%;
       }
-    }
-
-    // Posts Container
-    .posts-container {
-      margin: 10px 30%;
 
       .my-1 {
         text-indent: 50px;
       }
     }
 
+    .modal-content {
+      p {
+        text-indent: 50px;
+        font-size: 20px;
+      }
+
+      .reply-btn {
+        display: flex;
+        margin: 10px 43%;
+      }
+    }
+
     /* Media Query: Large Smartphone */
     @media screen and (max-width: 600px) {
       h1 {
-        font-size: 20px;
+        font-size: 35px;
       }
 
       .posts-container {

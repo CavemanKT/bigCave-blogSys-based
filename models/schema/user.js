@@ -26,6 +26,10 @@ module.exports = function(sequelize, DataTypes) {
     avatar: {
       type: DataTypes.STRING(255),
       allowNull: true
+    },
+    offset: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     sequelize,

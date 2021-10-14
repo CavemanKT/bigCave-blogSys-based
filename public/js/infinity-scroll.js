@@ -1,7 +1,8 @@
 const $postsContainer = $('#posts-container')
 const $loader = $('#loader')
 // $loader.attr('hidden', false)    //use it later
-
+let $offsetCounter = $('#offset-counter')  // assume it gives 0
+let num = 0
 
 
 const displayPosts = () => {
@@ -9,13 +10,10 @@ const displayPosts = () => {
 }
 
 const getPosts = async () => {
-  let $offsetCounter = $('#offset-counter')  // assume it gives 0
-  let num = $offsetCounter.text()
   num =+ 5
-  console.log(num);
 
-  $('#offset-counter').text(num)
-
+  // show the loader before appending to the posts-container
+  $('#loader').attr('hidden', false)
 
   setTimeout(() => {
     axios({
@@ -24,34 +22,25 @@ const getPosts = async () => {
     }).then( (res) => {
       let html = res.data
       let postsArr = $(html).find('.individual-post')
-      console.log($('#offset-counter').text());
-      // console.log(postArr[0]);
-      console.log(html);
 
-      // postsArr.forEach( (i, post) => {
-        // reverse the order and then prepend to the post container
-      // });
-
+      // append the posts to the posts that we have
+      postsArr.each( ( i, post) => {
+        $('#posts-container').append(post)
+      });
     })
+
+    // hide the loader after 1s
+    $('#loader').attr('hidden', true)
 
   }, 1000);
 
-  // try {
-  //   const response = await fetch(`http://localhost:3000/api/my-posts?limit=${limit}`)
-  //   console.log(response);
-  //   data = await response.text()
-  //   // console.log(data);
-  //   displayPosts()
-  // } catch(error) {
-  //   console.log(error);
-  // }
 }
 
 
 // Check to see if scrolling near bottom of page, Load More Photos
 window.addEventListener('scroll', () => {
-  console.log('window.innerHeight=', window.innerHeight, 'window.scrollY= ', window.scrollY, 'document.body.offsetHeight= ', document.body.offsetHeight - 10);
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
+  console.log('window.innerHeight=', window.innerHeight, 'window.scrollY= ', window.scrollY, 'document.body.offsetHeight= ', document.body.offsetHeight - 1);
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
     getPosts();
     console.log('load more');
   }

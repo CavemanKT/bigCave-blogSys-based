@@ -7,8 +7,7 @@ const {
   post: { getPostById }
 } = require('../../_helpers')
 
-const { Post } = require('../../../models')
-const { Comment } = require('../../../models')
+const { Post, Comment, User } = require('../../../models')
 
 const permittedParams = [
   'content'
@@ -50,11 +49,18 @@ const addComments = async function(req, res) {
 
   results.rows.unshift(newComment)
 
+  const postUser = await User.findOne({
+    where: {
+      id: currentPost.UserId
+    }
+  })
 
+
+// when I hit the reply button,  the icon and name becomes currentUser's
   res.render('api/posts/show', {
     comments: results.rows,
     post: currentPost,
-    user: currentUser,
+    user: postUser,
     layout: false
   })
 }
