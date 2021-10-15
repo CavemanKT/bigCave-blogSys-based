@@ -1,0 +1,13 @@
+<div class="offset-count d-none" data-offset="<%= newOffset  %>"></div>
+
+<% posts.forEach(post => { %>
+  <div class="individual-post mb-5">
+    <div class="my-1">
+      <h1 class='text-center'><%= post.title %></h1>
+      <p>
+        <%= `${post.content.substring(0, 500)}... ` %>
+        <a class="show-btn font-weight-bold" data-url="/api/my-posts/show/<%= post.id %>" data-method="GET">Read More</a>
+      </p>
+    </div>
+  </div>
+<% }) %>

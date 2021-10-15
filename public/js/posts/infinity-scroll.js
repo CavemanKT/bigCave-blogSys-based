@@ -1,6 +1,3 @@
-const displayPosts = () => {
-  // big problem!!!
-}
 
 const getPosts = async () => {
   const $loader = $('#loader')

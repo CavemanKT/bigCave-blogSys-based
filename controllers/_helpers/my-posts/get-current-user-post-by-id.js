@@ -1,6 +1,6 @@
 const { Post } = require('../../../models')
 
-module.exports = function(format) {
+module.exports = function(format, options = {}) {
   return async function (req, res, next) {
     const { locals: { currentUser } } = res
     const { params: { id } } = req
@@ -12,7 +12,8 @@ module.exports = function(format) {
       include: {
         association: Post.Comments
       },
-      order: [['createdAt', 'DESC']]
+      order: [['createdAt', 'DESC']],
+      ...options
     })
 
     if (!post) {

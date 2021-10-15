@@ -1,34 +1,21 @@
 
-let num = 0
-
-
-const displayPosts = () => {
-  // big problem!!!
-}
-
 const getPosts = async () => {
-  num =+ 5
-  // show the loader before appending to the posts-container
-  $('#loader').attr('hidden', false)
-  setTimeout(() => {
+  const $loader = $('#loader')
+
+  if ($loader.hasClass('d-none')) {
+    $loader.removeClass('d-none').addClass('d-block')
+    const offset = $(".offset-count").last().data('offset')
+
     axios({
-      method: 'POST',
-      url: `/api/offset/${num}`
+      method: 'GET',
+      url: `/api/offset?offset=${offset}`
     }).then( (res) => {
       let html = res.data
-      let postsArr = $(html).find('.individual-post')
-
-      // append the posts to the posts that we have
-      postsArr.each( ( i, post) => {
-        $('#posts-container').append(post)
-      });
+      $('#posts-container').append(html)
+    }).finally(() => {
+      $loader.removeClass('d-block').addClass('d-none')
     })
-
-    // hide the loader after 1s
-    $('#loader').attr('hidden', true)
-
-  }, 1000);
-
+  }
 }
 
 window.addEventListener('scroll', () => {

@@ -16,7 +16,7 @@ router.post('/posts/:id/reply', require('../controllers/api/api-posts/addComment
 
 // My Page =============================================================
 //infinity scrolling
-router.post('/offset/:addition', require('../controllers/pages/my-posts/offset-setting'))
+router.get('/offset', require('../controllers/api/api-my-posts/offset-setting'))
 
 //browse only my posts           GET
 router.get('/my-posts', require('../controllers/pages/my-posts/get-my-posts'))

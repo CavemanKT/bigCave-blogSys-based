@@ -9,10 +9,13 @@
     <h1><%= FullName ? `${FullName}'s Posts` : '<please tell us your name in my profile>' %></h1>
     <br>
     <!-- Loader -->
-    <div class="loader" id="loader" hidden>
+    <div class="loader d-none" id="loader">
         <img src="/img/loader.svg" alt="Loading">
     </div>
+
     <div class="posts-container" id="posts-container">
+    <div class="offset-count d-none" data-offset="5"></div>
+
       <% posts.forEach(post => { %>
         <div class="individual-post mb-5">
           <div class="my-1">

@@ -3,12 +3,12 @@
     <span>
       <img
         id="profile-avatar-preview"
-        class="<%= user.avatar ? 'rounded me-2' : 'd-none' %>"
-        src="<%= user.avatar %>"
+        class="<%= post.User.avatar ? 'rounded me-2' : 'd-none' %>"
+        src="<%= post.User.avatar %>"
         alt="Avatar"
         style="width: 50px; height: 50px;"
       >
-      <%= `${user.firstName} ${user.lastName}  wrote` %>
+      <%= `${post.User.firstName} ${post.User.lastName}  wrote` %>
     </span>
   </h5>
 
@@ -42,12 +42,19 @@
 
     <button type="button" class="reply-btn btn btn-primary btn-lg mt-3" data-method="POST" data-url="/api/my-posts/<%= post.id %>/reply">Reply</button>
     <!-- comments exhibition -->
-    <% if (comments.length > 0) { %>
-      <ul class="list-group">
-        <% comments.forEach(function(item) { %>
-          <li class="list-group-item">
+    <% if (post.Comments.length > 0) { %>
+      <ul id="comment-list" class="list-group">
+        <% post.Comments.forEach(function(item) { %>
+          <li class="list-group-item" data-ParentId="null">
             <p>
               <%= item.content %>
+              <ul>
+                <li class="list-group-item">
+                  <p>
+                    test
+                  </p>
+                </li>
+              </ul>
             </p>
           </li>
         <% }) %>

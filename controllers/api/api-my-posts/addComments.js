@@ -7,11 +7,12 @@ const {
   myPost:{ getCurrentUserPostById },
 } = require('../../_helpers')
 
-const { Post } = require('../../../models')
-const { Comment } = require('../../../models')
+const { Post, Comment, User } = require('../../../models')
 
 const permittedParams = [
-  'content'
+  'content',
+  'UserId',
+  'PostId'
 ]
 
 const validation = [
@@ -24,11 +25,12 @@ const addComments = async function(req, res) {
 // fetch all the posts data from db regardless of the currentUser
 // create data
 
-  const { locals: { currentPost } } = res
-  const { locals: { currentUser } } = res
+  const { locals: { currentPost, currentUser } } = res
   const { body: commentParam } = req
 
   const newComment = await Comment.create({
+    UserId: currentUser.id,
+    PostId: currentPost.id,
     ...commentParam,
   }, {
     fields: permittedParams,
@@ -37,22 +39,8 @@ const addComments = async function(req, res) {
     }
   })
 
-  const results = await Comment.findAndCountAll({
-    where: {
-      PostId: currentPost.id
-    },
-    order: [['createdAt', 'DESC']],
-  })
-
-  newComment.setUser(currentUser)   // to set the UserId
-  newComment.setPost(currentPost)
-  results.rows.unshift(newComment)
-
-
-  res.render('api/my-posts/show', {
-    comments: results.rows,
-    post: currentPost,
-    user: currentUser,
+  res.render('api/my-posts/reply-copy', {
+    comment: newComment,
     layout: false
   })
 }
@@ -60,8 +48,8 @@ const addComments = async function(req, res) {
 module.exports = [
   MulterParser.none(),
   authenticateCurrentUserByToken('html'),
+  getCurrentUserPostById('modal'),
   validation,
   checkValidation,
-  getCurrentUserPostById('modal'),
   addComments
 ]

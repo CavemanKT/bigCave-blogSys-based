@@ -8,7 +8,6 @@ module.exports = function(format, options = {}) {
       order: [['createdAt', 'DESC']],
       ...options
     })
-    // console.log(id);
 
     if (!post) {
       if (format === 'modal') {
