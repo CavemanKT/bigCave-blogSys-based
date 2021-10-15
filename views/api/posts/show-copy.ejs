@@ -1,0 +1,65 @@
+<div class="modal-header">
+  <h5 class="modal-title">
+    <span>
+      <img
+        id="profile-avatar-preview"
+        class="<%= post.User.avatar ? 'rounded me-2' : 'd-none' %>"
+        src="<%= post.User.avatar %>"
+        alt="Avatar"
+        style="width: 50px; height: 50px;"
+      >
+      <%= `${post.User.firstName} ${post.User.lastName}  wrote` %>
+    </span>
+  </h5>
+
+  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+  <div class="container">
+    <!-- post contents -->
+    <h1 class="mb-3 text-center"><%= post.title %></h1>
+    <p class="mb-3"><%= post.content%></p>
+
+    <!-- comment input -->
+    <form id="comment-form" novalidate>
+
+      <div class="form-floating">
+        <textarea class="form-control"
+        placeholder="Leave a comment here"
+        id="comment"
+        name="content"
+        style="height: 100px"
+        type="text"
+        data-error-ref="content"
+        required
+        ></textarea>
+        <label for="comment">Comments</label>
+        <div class="invalid-feedback"></div>
+      </div>
+    </form>
+
+    <button type="button" class="reply-btn btn btn-primary btn-lg mt-3" data-method="POST" data-url="/api/posts/<%= post.id %>/reply">Reply</button>
+    <!-- comments exhibition -->
+    <% if (post.Comments.length > 0) { %>
+      <ul id="comment-list" class="list-group">
+        <% post.Comments.forEach(function(item) { %>
+          <li class="list-group-item" data-ParentId="null">
+            <p>
+              <%= item.content %>
+              <ul>
+                <li class="list-group-item">
+                  <p>
+                    test
+                  </p>
+                </li>
+              </ul>
+            </p>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <div>No Comment</div>
+    <% } %>
+  </div>
+</div>

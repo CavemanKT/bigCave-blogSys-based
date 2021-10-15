@@ -10,7 +10,9 @@ const {
 const { Post, Comment, User } = require('../../../models')
 
 const permittedParams = [
-  'content'
+  'content',
+  'UserId',
+  'PostId'
 ]
 
 const validation = [
@@ -22,12 +24,12 @@ const validation = [
 const addComments = async function(req, res) {
 // fetch all the posts data from db regardless of the currentUser
 // create data
-
-  const { locals: { currentPost } } = res
-  const { locals: { currentUser } } = res
+  const { locals: { currentPost, currentUser } } = res
   const { body: commentParam } = req
 
   const newComment = await Comment.create({
+    UserId: currentUser.id,
+    PostId: currentPost.id,
     ...commentParam,
   }, {
     fields: permittedParams,
@@ -35,32 +37,9 @@ const addComments = async function(req, res) {
       association: Post.Comments
     }
   })
-
-
-  const results = await Comment.findAndCountAll({
-    where: {
-      PostId: currentPost.id
-    },
-    order: [['createdAt', 'DESC']],
-  })
-
-  newComment.setUser(currentUser)   // to set the UserId
-  newComment.setPost(currentPost)
-
-  results.rows.unshift(newComment)
-
-  const postUser = await User.findOne({
-    where: {
-      id: currentPost.UserId
-    }
-  })
-
-
-// when I hit the reply button,  the icon and name becomes currentUser's
-  res.render('api/posts/show', {
-    comments: results.rows,
-    post: currentPost,
-    user: postUser,
+  // when I hit the reply button,  the icon and name becomes currentUser's
+  res.render('api/posts/reply-copy', {
+    comment: newComment,
     layout: false
   })
 }
@@ -68,8 +47,8 @@ const addComments = async function(req, res) {
 module.exports = [
   MulterParser.none(),
   authenticateCurrentUserByToken('html'),
+  getPostById('modal'),
   validation,
   checkValidation,
-  getPostById('modal'),
   addComments
 ]

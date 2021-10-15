@@ -7,11 +7,12 @@ router.post('/auth/login', require('../controllers/api/auth/login'))
 router.delete('/auth/logout', require('../controllers/api/auth/logout'))
 
 //Home Page ==============================================================
-// SHOW in main page              GET
+// infinite scroll in home page
+router.get('/posts', require('../controllers/api/api-posts/offset-setting'))
+// SHOW in main page              GET`
 router.get('/posts/show/:id', require('../controllers/api/api-posts/get-one-post'))
 // COMMENT from main page        POST
 router.post('/posts/:id/reply', require('../controllers/api/api-posts/addComments'))
-
 
 // My Page =============================================================
 //infinity scrolling
@@ -40,8 +41,6 @@ router.delete('/my-posts/:id', require('../controllers/api/api-my-posts/delete-o
 
 // UPDATE THE EDIT FORM            PUT
 router.put('/my-posts/:id', require('../controllers/api/api-my-posts/update-one-post'))
-
-
 
 // My Profile =================================================================
 router.get('/my/profile', require('../controllers/api/my-profile/edit'))

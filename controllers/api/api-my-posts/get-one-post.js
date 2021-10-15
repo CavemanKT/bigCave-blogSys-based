@@ -2,8 +2,7 @@ const { authenticateCurrentUserByToken , myPost: { getCurrentUserPostById } } = 
 const { Comment } = require('../../../models')
 
 const showCurrentUser = async function(req, res) {
-  const { locals: { currentPost } } = res
-  const { locals: { currentUser } } = res
+  const { locals: { currentPost, currentUser } } = res
 
   const results = await Comment.findAndCountAll({
     where: {

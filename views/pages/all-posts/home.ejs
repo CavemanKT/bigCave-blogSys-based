@@ -8,14 +8,18 @@
 <%- contentFor('body') %>
 <div id="posts-index" class="posts-index">
   <h1>World</h1>
-<!-- later I will add ranking system -->
+  <!-- later I will add ranking system -->
+
   <br>
+
   <!-- Loader -->
-  <div class="loader" id="loader" hidden>
-      <img src="/img/loader.svg" alt="Loading">
+  <div class="loader d-none" id="loader">
+    <img src="/img/loader.svg" alt="Loading">
   </div>
 
   <div class="posts-container" id="posts-container">
+    <div class="offset-count d-none" data-offset="5"></div>
+
     <% posts.forEach(post => { %>
       <div class="individual-post mb-5">
         <div class="my-1">
@@ -26,6 +30,6 @@
           </p>
         </div>
       </div>
-      <% }); %>
+    <% }) %>
   </div>
 </div>

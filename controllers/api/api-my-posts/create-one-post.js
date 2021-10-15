@@ -29,7 +29,7 @@ const createMyPosts = async function(req, res) {
   const { locals: { currentUser } } = res
   const { body: postParams } = req
 
-  const newPost = await Post.create({
+  const newPost = await currentUser.createPost({
     ...postParams,
   }, {
     fields: permittedParams.Post,
@@ -37,8 +37,6 @@ const createMyPosts = async function(req, res) {
       association: Post.Comments
     }
   })
-
-  newPost.setUser(currentUser)   // to set the UserId
 
   // the page will be located to /api/my-posts using views/_partials/navbar.ejs (window.location.href)
 

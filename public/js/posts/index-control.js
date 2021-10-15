@@ -20,7 +20,6 @@ const setLoadingModal = function() {
   `)
 }
 
-
 const errorHandler = function(err, $elem) {
   if(err){
     switch(err.response.status) {
@@ -85,6 +84,9 @@ $('#posts-index, #show-modal').on('click', '.reply-btn', function(e) {
   $elem.attr('disabled', true)
 
   axios({ method, url, data: formData }).then(function(res) {
-    setModal(res.data)
-  }).catch((err) => errorHandler(err, $elem))
+    $('#comment-list').prepend(res.data)
+    $('#show-modal #comment-form').trigger('reset')
+  }).catch((err) => errorHandler(err, $elem)).finally(() => {
+    $elem.attr('disabled', false)
+  })
 })

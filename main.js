@@ -1,4 +1,3 @@
-const cheerio = require('cheerio');
 // Libraries used to create the server
 require('dotenv').config()
 const express = require('express')
