@@ -79,15 +79,12 @@
           $elem.attr('disabled', false)
 
           const { response: { data: { errors } }} = err
-          console.log('406');
-          console.log(errors);
 
           $('#compose-modal').find('.invalid-feedback').empty()
           $('#compose-modal').find('.is-invalid').removeClass('is-invalid')
 
           errors.forEach(function(error) {
             const { param: fieldName, msg } = error
-            console.log(fieldName, msg);
             const $input = $('#compose-modal').find(`[data-error-ref="${fieldName}"]`)
             const $invalidFeedback = $input.siblings('.invalid-feedback')
 
@@ -97,7 +94,6 @@
           break
         }
         case 401: {
-          console.log('401');
           alert(err.response.data.message)
           break
         }
@@ -114,7 +110,6 @@
           $elem.attr('disabled', false)
 
           const { response: { data: { errors } }} = err
-          console.log('406', err);
           $('#my-profile-modal').find('.invalid-feedback').empty()
           $('#my-profile-modal').find('.is-invalid').removeClass('is-invalid')
 
@@ -206,7 +201,6 @@
         window.location.href = '/api/my-posts'
       }).catch((err) => errorHandlerMyProfile(err, $elem)).finally(() => {
         $elem.attr('disabled', false)
-        console.log('disabled the btn');
       })
     })
   })

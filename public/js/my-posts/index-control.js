@@ -35,7 +35,6 @@ const setLoadingEditModal = () => {
 
 const errorHandler = function(err, $elem) {
   if(err){
-    console.log(err.response);
     switch(err.response.status) {
       case 406: {
         $elem.attr('disabled', false)
@@ -110,7 +109,6 @@ $('#posts-index, #show-modal').on('click', '.reply-btn', function(e) {
   const url = $elem.data('url')
   const method = $elem.data('method')
   const formData = new FormData($('#show-modal #comment-form')[0])
-  console.log('elem:', $elem[0], 'url:', url, 'method:', method, 'formData: ', formData);
 
   $elem.attr('disabled', true)
 

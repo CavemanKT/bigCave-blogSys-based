@@ -67,8 +67,6 @@ $('#posts-index, #modal').on('click', '.show-btn', (e) => {
   const url = $elem.data('url')
   const method = $elem.data('method')
   setLoadingModal()
-  // console.log('elem:', $elem[0], 'url:', url, 'method:', method);
-
 
   axios({ method, url }).then((res) => {
     setModal(res.data)
@@ -83,7 +81,6 @@ $('#posts-index, #show-modal').on('click', '.reply-btn', function(e) {
   const url = $elem.data('url')
   const method = $elem.data('method')
   const formData = new FormData($('#show-modal #comment-form')[0])
-  console.log('elem:', $elem[0], 'url:', url, 'method:', method, 'formData: ',formData);
 
   $elem.attr('disabled', true)
 
