@@ -17,8 +17,6 @@ const getPosts = async () => {
     }).then( (res) => {
       let html = res.data
       let postsArr = $(html).find('.individual-post')
-      console.log(html);
-      console.log(postsArr);
 
       // append the posts to the posts that we have
       postsArr.each( ( i, post) => {

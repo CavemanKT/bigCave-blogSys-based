@@ -24,7 +24,7 @@ const offsetSetting = async function(req, res) {
   })
 
   offset = Number(dbOffset.offset) + Number(addition)
-  console.log('offset: ', offset, 'currentUser.id: ', currentUser.id);
+
   const results = await Post.findAndCountAll({
     where: {
       UserId: currentUser.id
@@ -53,7 +53,6 @@ const offsetSetting = async function(req, res) {
     fullname = `${resultOfOneUser.firstName} ${resultOfOneUser.lastName}`
   }
 
-  console.log( 'currentUser.id: ', currentUser.id, 'results.rows:', results.rows, 'fullname: ', fullname);
   res.render('pages/my-posts/my-posts', {
     posts: results.rows,
     FullName: fullname
