@@ -113,7 +113,7 @@ $('#posts-index, #show-modal').on('click', '.reply-btn', function(e) {
   $elem.attr('disabled', true)
 
   axios({ method, url, data: formData }).then(function(res) {
-    setShowModal(res.data)
+    $('#comment-list').prepend(res.data)
 
   }).catch((err) => errorHandler(err, $elem))
 })
