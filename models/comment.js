@@ -9,13 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Comment.Post = this.belongsTo(models.Post)
       Comment.User = this.belongsTo(models.User)
-      Comment.Comment = this.belongsTo(models.Comment, {
-        as: "Parent"
-      })
-      Comment.Comment = this.hasMany(models.Comment, {
-        as: "Children",
-        foreignKey: "CommentId"
-      })
+      // I was gonna add association with other comments, I won't touch this part until I found the solution
     }
   };
   const { tableAttributes } = CommentSchema( sequelize, DataTypes )
