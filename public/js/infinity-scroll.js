@@ -1,6 +1,4 @@
-const $postsContainer = $('#posts-container')
-const $loader = $('#loader')
-// $loader.attr('hidden', false)    //use it later
+
 let $offsetCounter = $('#offset-counter')  // assume it gives 0
 let num = 0
 
@@ -36,12 +34,8 @@ const getPosts = async () => {
 
 }
 
-
-// Check to see if scrolling near bottom of page, Load More Photos
 window.addEventListener('scroll', () => {
-  console.log('window.innerHeight=', window.innerHeight, 'window.scrollY= ', window.scrollY, 'document.body.offsetHeight= ', document.body.offsetHeight - 1);
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {   // document.body.offsetHeight - 100 is fine
     getPosts();
-    console.log('load more');
   }
 });
