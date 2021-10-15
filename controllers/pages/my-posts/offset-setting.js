@@ -14,6 +14,7 @@ const offsetSetting = async function(req, res) {
   const { locals:{ currentUser } } = res
 
   let offset = 0
+  let fullname = ''
 
   // search results of offset
   const dbOffset = await User.findOne({
@@ -23,19 +24,40 @@ const offsetSetting = async function(req, res) {
   })
 
   offset = Number(dbOffset.offset) + Number(addition)
-
+  console.log('offset: ', offset, 'currentUser.id: ', currentUser.id);
   const results = await Post.findAndCountAll({
+    where: {
+      UserId: currentUser.id
+    },
     order: [['createdAt', 'DESC']],
     limit,
     offset
   })
+
 
   // update dbOffset
   if ( results.rows !== null ){
     await currentUser.update( {offset: offset}, { fields: permittedChangeParams.offset })
   }
 
-  res.render('pages/all-posts/home', {posts: results.rows })
+  // search the currentUser's full name
+    const resultOfOneUser = await User.findOne({
+    where: {
+      id: currentUser.id
+    }
+  })
+
+  if (resultOfOneUser.firstName == null && resultOfOneUser.lastName == null) {
+    fullname = false
+  } else {
+    fullname = `${resultOfOneUser.firstName} ${resultOfOneUser.lastName}`
+  }
+
+  console.log( 'currentUser.id: ', currentUser.id, 'results.rows:', results.rows, 'fullname: ', fullname);
+  res.render('pages/my-posts/my-posts', {
+    posts: results.rows,
+    FullName: fullname
+  })
 }
 
 module.exports = [

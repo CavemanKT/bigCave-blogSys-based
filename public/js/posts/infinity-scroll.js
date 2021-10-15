@@ -1,5 +1,4 @@
 
-let $offsetCounter = $('#offset-counter')  // assume it gives 0
 let num = 0
 
 
