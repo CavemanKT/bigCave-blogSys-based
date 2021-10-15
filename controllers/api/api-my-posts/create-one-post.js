@@ -38,8 +38,6 @@ const createMyPosts = async function(req, res) {
     }
   })
 
-  // the page will be located to /api/my-posts using views/_partials/navbar.ejs (window.location.href)
-
   res.redirect('/api/my-posts')
 }
 
