@@ -9,9 +9,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Comment.Post = this.belongsTo(models.Post)
       Comment.User = this.belongsTo(models.User)
-      // I was gonna add association with other comments, I won't touch this part until I found the solution
-      // Comment.Children = this.belongsTo(models.Comment, { as: 'Parent' })
-      // Comment.Parent = this.hasMany(models.Comment, { as: 'Children', foreignKey: 'ParentId' })
+
+      Comment.Children = this.belongsTo(models.Comment, { as: 'Parent' })
+      Comment.Parent = this.hasMany(models.Comment, { as: 'Children', foreignKey: 'ParentId' })
     }
   };
   const { tableAttributes } = CommentSchema( sequelize, DataTypes )
@@ -36,33 +36,36 @@ module.exports = (sequelize, DataTypes) => {
 
 // posts = [
 //   {
-//     content: 'ASDF',
+//     content: 'First layer 1',
+
 //     Comments: [
 //       {
-//         content: 'First Layer 1',
+//         content: 'Second Layer 1',
 //         Children: [
 //           {
-//             content: 'Second Layer 1',
-//             Children: [
-//               {
-//                 content: 'Third Layer 1'
-//               }
-//             ]
+//             content: 'Third Layer 1',
 //           }
 //         ]
 //       }, {
-//         content: 'First Layer 2',
+//         content: 'second Layer 2',
+
 //         Children: [
 //           {
-//             content: 'Second Layer 1',
+//             content: 'Third Layer 1',
+
 //             Children: [
 //               {
-//                 content: 'Third Layer 1'
+//                 content: 'Fourth Layer 1'
 //               }
 //             ]
+
 //           }
 //         ]
-//       }
+
+//       },
+
+
 //     ]
+
 //   }
 // ]

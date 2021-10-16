@@ -34,11 +34,15 @@ const addComments = async function(req, res) {
   }, {
     fields: permittedParams,
     include: {
-      association: Post.Comments
+      association: Post.Comments,
+      include: {
+        association: User.Comments
+      }
     }
   })
-  // when I hit the reply button,  the icon and name becomes currentUser's
-  res.render('api/posts/reply-copy', {
+
+  res.render('api/my-posts/reply', {
+    currentUser,
     comment: newComment,
     layout: false
   })

@@ -15,7 +15,6 @@
   <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 </div>
 
-
 <div class="modal-body">
   <div class="container">
     <!-- post contents -->
@@ -40,23 +39,59 @@
       </div>
     </form>
 
-    <button type="button" class="reply-btn btn btn-primary btn-lg mt-3" data-method="POST" data-url="/api/my-posts/<%= post.id %>/reply">Reply</button>
+    <button type="button" class="reply-btn btn btn-primary btn-lg mt-3" data-method="POST" data-url="/api/posts/<%= post.id %>/reply">Reply</button>
     <!-- comments exhibition -->
     <% if (post.Comments.length > 0) { %>
       <ul id="comment-list" class="list-group">
         <% post.Comments.forEach(function(item) { %>
           <li class="list-group-item" data-ParentId="null">
-            <p>
-              <%= item.content %>
-              <ul>
-                <li class="list-group-item">
+
+            <!-- inside 1st-layer-comment, there are contents, second-layer-reply-btn and 3nd-layer -->
+            <div class="each-comment">
+              <div>
+                <span>
+                  <img
+                    id="profile-avatar-preview"
+                    class="<%= item.user.avatar ? 'rounded me-2' : 'd-none' %>"
+                    src="<%= item.user.avatar %>"
+                    alt="Avatar"
+                    style="width: 30px; height: 30px;"
+                  >
+                </span>
+                <p class="currentComment-name">
+                  <%= `${item.user.firstName} ${item.user.lastName} : ` %>
+                </p>
+                <div class="each-comment-content">
                   <p>
-                    test
+                    <%= item.content %>
                   </p>
-                </li>
-              </ul>
-            </p>
+                  <a class="second-layer-reply-btn" data-url="/reply/3-layer-comment/:id">reply</a>
+                </div>
+              </div>
+
+<!-- 3rd layer comment -->
+              <div class="third-layer-comment-container">
+                <ul class="third-layer-comment-list list-group">
+                  <li id="ejs-current-comment-id" class="list-group-item">
+                    <article>
+                      <div>avatar</div>
+                      <a href="#ejs-current-comment-id--which-is-ParentId"></a><p>test</p>
+                    </article>
+                  </li>
+
+                  <li class="list-group-item">
+                    <article>
+                      <div>avatar</div>
+                      <a href="#ejs-current-comment-id--which-is-ParentId"></a><p>test</p>
+                    </article>
+                  </li>
+                </ul>
+              </div>
+<!-- END of 3rd layer comment -->
+
+            </div>
           </li>
+
         <% }) %>
       </ul>
     <% } else { %>

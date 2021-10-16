@@ -1,10 +1,28 @@
 const { authenticateCurrentUserByToken , post: { getPostById } } = require('../../_helpers')
-const { Post } = require('../../../models')
+const { Post, Comment } = require('../../../models')
 
-const showCurrentUser = async function(req, res) {
+const showPost = async function(req, res) {
   const { locals: { currentPost } } = res
 
-  res.render('api/posts/show-copy', {
+  const comments = await Comment.findAll({
+    where: {
+      PostId: currentPost.id
+    },
+    include: {
+      association: Post.User,
+      include: {
+        association: Post.Comments,
+      }
+    },
+    order: [['createdAt', 'DESC']]
+  })
+
+  comments.forEach((comment, i) => {
+    currentPost.Comments[i].user = comment.User
+  });
+
+  res.render('api/my-posts/show', {
+    comments,
     post: currentPost,
     layout: false
   })
@@ -22,5 +40,5 @@ module.exports = [
       }
     ]
   }),
-  showCurrentUser
+  showPost
 ]

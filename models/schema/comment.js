@@ -11,16 +11,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: true
     },
-    CommentId: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
     UserId: {
       type: DataTypes.INTEGER,
       allowNull: true
     },
     content: {
       type: DataTypes.TEXT,
+      allowNull: true
+    },
+    ParentId: {
+      type: DataTypes.INTEGER,
       allowNull: true
     }
   }, {

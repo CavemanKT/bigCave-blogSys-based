@@ -1,0 +1,20 @@
+<li class="list-group-item">
+  <div class="each-comment">
+    <span>
+      <img
+        id="profile-avatar-preview"
+        class="<%= currentUser.avatar ? 'rounded me-2' : 'd-none' %>"
+        src="<%= currentUser.avatar %>"
+        alt="Avatar"
+        style="width: 25px; height: 25px;"
+      >
+    </span>
+    <p class="currentComment-name">
+      <%= `${currentUser.firstName} ${currentUser.lastName} : ` %>
+    </p>
+    <p class="currentComment-content">
+      <%= comment.content %>
+    </p>
+
+  </div>
+</li>

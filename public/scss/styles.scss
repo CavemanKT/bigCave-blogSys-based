@@ -95,10 +95,37 @@ html {
     }
 
     .modal-content {
-      p {
-        text-indent: 50px;
-        font-size: 20px;
+      .container {
+        p {
+          text-indent: 50px;
+          font-size: 20px;
+        }
+
+        #comment-list {
+          p {
+            font-size: 20px;
+            display: inline;
+          }
+
+          .list-group-item {
+
+            // .third-layer-comment {    // for smoother scrolling effect
+            //   scroll-behavior: smooth;
+            // }
+            .each-comment {
+              .each-comment-content {
+                text-indent: 40px;
+              }
+            }
+
+            .second-layer-reply-btn {
+              float: right;
+            }
+          }
+        }
       }
+
+
 
       .reply-btn {
         display: flex;

@@ -35,11 +35,15 @@ const addComments = async function(req, res) {
   }, {
     fields: permittedParams,
     include: {
-      association: Post.Comments
+      association: Post.Comments,
+      include: {
+        association: User.Comments
+      }
     }
   })
 
-  res.render('api/my-posts/reply-copy', {
+  res.render('api/my-posts/reply', {
+    currentUser,
     comment: newComment,
     layout: false
   })

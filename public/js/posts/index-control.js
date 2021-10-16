@@ -65,8 +65,8 @@ $('#posts-index, #modal').on('click', '.show-btn', (e) => {
   const $elem = parent ? $(e.target).parent() : $(e.target)
   const url = $elem.data('url')
   const method = $elem.data('method')
-  setLoadingModal()
 
+  setLoadingModal()
   axios({ method, url }).then((res) => {
     setModal(res.data)
   }).catch((err) => errorHandler(err, $elem))

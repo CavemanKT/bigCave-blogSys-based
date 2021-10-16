@@ -113,7 +113,6 @@ $('#posts-index, #show-modal').on('click', '.reply-btn', function(e) {
   $elem.attr('disabled', true)
 
   axios({ method, url, data: formData }).then(function(res) {
-    console.log(res.data);
     $('#comment-list').prepend(res.data)
     $('#show-modal #comment-form').trigger('reset')
   }).catch((err) => errorHandler(err, $elem)).finally(() => {
