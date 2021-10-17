@@ -93,7 +93,7 @@ $('#posts-index, #show-modal').on('click', '.reply-btn', function(e) {
 })
 
 //2nd layer comment btn      =============================================
-$('#show-modal').on('click', '.first-layer-reply-btn', (e) => {
+$('#show-modal .first-layer-replay-btn').toggle((e) => {
   e.preventDefault()
   const $elem = $(e.target)
   const url = $elem.data('url')
@@ -102,4 +102,4 @@ $('#show-modal').on('click', '.first-layer-reply-btn', (e) => {
   axios({ method, url }).then((res) => {
     $('#comment-list').prepend(res.data)
   })
-})
+}, )
