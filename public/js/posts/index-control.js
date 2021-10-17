@@ -92,12 +92,14 @@ $('#posts-index, #show-modal').on('click', '.reply-btn', function(e) {
   })
 })
 
-//2nd layer comment btn
-$('#comment-list, .second-layer-comment-container').on('click', '.second-layer-reply-btn', (e) => {
+//2nd layer comment btn      =============================================
+$('#show-modal').on('click', '.first-layer-reply-btn', (e) => {
   e.preventDefault()
   const $elem = $(e.target)
   const url = $elem.data('url')
   const method = $elem.data('method')
-  console.log($elem, url, method);
-
+  console.log(url, method);
+  axios({ method, url }).then((res) => {
+    $('#comment-list').prepend(res.data)
+  })
 })

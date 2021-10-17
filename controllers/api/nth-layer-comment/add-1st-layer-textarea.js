@@ -4,17 +4,11 @@ const MulterParser = require('../../../services/MulterParser')
 const {
   authenticateCurrentUserByToken,
   checkValidation,
-  myPost:{ getCurrentUserPostById },
+  myComment: { getCurrentUserCommentById }
 } = require('../../_helpers')
 
 const { Post, Comment, User } = require('../../../models')
 
-const permittedParams = [
-  'content',
-  'UserId',
-  'PostId',
-  'ParentId'
-]
 
 const validation = [
   check('content')
@@ -24,25 +18,9 @@ const validation = [
 
 const addTextArea = async function(req, res) {
 
-  const { locals: { currentPost, currentUser } } = res
-
-  // const newComment = await Comment.create({
-  //   UserId: currentUser.id,
-  //   PostId: currentPost.id,
-  //   ...commentParam,
-  // }, {
-  //   fields: permittedParams,
-  //   include: {
-  //     association: Post.Comments,
-  //     include: {
-  //       association: User.Comments
-  //     }
-  //   }
-  // })
-
-  res.render('api/my-posts/reply', {
-    currentUser,
-    comment: newComment,
+  const { locals: { currentComment } } = res
+  res.render('api/nth-layer-comment/1st-layer-textarea', {
+    ParentId: currentComment.id,
     layout: false
   })
 }
@@ -50,8 +28,7 @@ const addTextArea = async function(req, res) {
 module.exports = [
   MulterParser.none(),
   authenticateCurrentUserByToken('html'),
-  // getCurrentUserPostById('modal'),
-  validation,
+  getCurrentUserCommentById('modal'),
   checkValidation,
   addTextArea
 ]

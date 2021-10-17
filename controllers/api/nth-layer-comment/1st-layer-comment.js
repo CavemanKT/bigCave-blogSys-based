@@ -1,5 +1,4 @@
-// begin to add 3rd layer comment feature..
-// then remember to shrink all the comments if it's too much.
+// it triggers when we click the comment reply btn
 const { body, check } = require('express-validator')
 const MulterParser = require('../../../services/MulterParser')
 
@@ -46,7 +45,7 @@ const addComments = async function(req, res) {
     }
   })
 
-  res.render('api/nth-layer-comment/2nd-layer-comment', {
+  res.render('api/nth-layer-comment/1st-layer-comment', {
     currentUser,
     comment: newComment,
     layout: false

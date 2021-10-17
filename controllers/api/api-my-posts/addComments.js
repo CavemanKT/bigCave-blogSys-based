@@ -45,6 +45,7 @@ const addComments = async function(req, res) {
   res.render('api/my-posts/reply', {
     currentUser,
     comment: newComment,
+    ParentId: newComment.id,
     layout: false
   })
 }

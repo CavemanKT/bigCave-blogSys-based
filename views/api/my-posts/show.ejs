@@ -44,7 +44,7 @@
     <ul id="comment-list" class="list-group">
     <% if (post.Comments.length > 0) { %>
         <% post.Comments.forEach(function(item) { %>
-          <li class="list-group-item" data-ParentId="<%= ParentId %> ">
+          <li class="list-group-item" id="<%= item.id %> " data-ParentId="<%= item.id %> ">
 
             <!-- inside 1st-layer-comment, there are contents, first-layer-reply-btn and 3nd-layer -->
             <div class="each-comment">
@@ -65,29 +65,9 @@
                   <p>
                     <%= item.content %>
                   </p>
-                  <a class="first-layer-reply-btn" data-url="/reply/3-layer-comment/:id" data-method="POST">reply</a>
+                  <a class="first-layer-reply-btn" data-url="/nth-layer-comment/1st-layer-comment/textarea/<%= item.id %> " data-method="POST">reply</a>
                 </div>
               </div>
-
-<!-- 3rd layer comment -->
-              <div class="second-layer-comment-container">
-                <ul class="second-layer-comment-list list-group">
-                  <li id="ejs-current-comment-id" class="list-group-item">
-                    <article>
-                      <div>avatar</div>
-                      <a href="#ejs-current-comment-id--which-is-ParentId"></a><p>test</p>
-                    </article>
-                  </li>
-
-                  <li class="list-group-item">
-                    <article>
-                      <div>avatar</div>
-                      <a href="#ejs-current-comment-id--which-is-ParentId"></a><p>test</p>
-                    </article>
-                  </li>
-                </ul>
-              </div>
-<!-- END of 3rd layer comment -->
 
             </div>
           </li>

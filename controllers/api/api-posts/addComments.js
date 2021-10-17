@@ -8,6 +8,7 @@ const {
 } = require('../../_helpers')
 
 const { Post, Comment, User } = require('../../../models')
+const comment = require('../../../models/schema/comment')
 
 const permittedParams = [
   'content',
@@ -44,6 +45,7 @@ const addComments = async function(req, res) {
   res.render('api/my-posts/reply', {
     currentUser,
     comment: newComment,
+    ParentId: newComment.id,
     layout: false
   })
 }

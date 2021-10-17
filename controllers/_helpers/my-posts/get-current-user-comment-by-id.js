@@ -1,4 +1,4 @@
-const { Post, Comment } = require('../../../models')
+const { User, Post, Comment } = require('../../../models')
 
 module.exports = function(format, options = {}) {
   return async function (req, res, next) {
@@ -8,12 +8,6 @@ module.exports = function(format, options = {}) {
       where: {
         id: Number(id) || 0,
         UserId: currentUser.id
-      },
-      include: {
-        association: Post.Comments,
-        include: {
-          association: User.Comments
-        }
       },
       order: [['createdAt', 'DESC']],
       ...options

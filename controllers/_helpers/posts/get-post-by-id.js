@@ -20,7 +20,6 @@ module.exports = function(format, options = {}) {
     }
 
     res.locals.currentPost = post
-    // console.log('post: ', post.UserId);
     next()
   }
 }
