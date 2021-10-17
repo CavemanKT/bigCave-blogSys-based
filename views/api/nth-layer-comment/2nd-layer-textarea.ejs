@@ -1,0 +1,18 @@
+<li id="<%= ParentId %>" data-ParentId="<%= ParentId %> " class="list-group-item">
+  <form id="compose-form" novalidate>
+
+    <div class="form-group">
+      <label>Content</label>
+      <textarea class="form-control"
+      name="content"
+      rows="3"
+      cols="30"
+      type="text"
+      data-error-ref="content"
+      required></textarea>
+      <div class="invalid-feedback"></div>
+    </div>
+    <a class="2nd-layer-comment-submit-btn btn btn-primary" data-url="/nth-layer-comment/2nd-layer-comment/<%= currentCommentId2 %> " data-method="POST">Comment</a>
+
+  </form>
+</li>

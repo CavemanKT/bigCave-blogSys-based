@@ -8,5 +8,8 @@ module.exports = {
   },
   myPost: {
     getCurrentUserPostById: require('./my-posts/get-current-user-post-by-id')
+  },
+  myComment: {
+    getCurrentUserCommentById: require('./my-posts/get-current-user-comment-by-id')
   }
 }

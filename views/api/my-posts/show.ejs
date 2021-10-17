@@ -41,12 +41,12 @@
 
     <button type="button" class="reply-btn btn btn-primary btn-lg mt-3" data-method="POST" data-url="/api/posts/<%= post.id %>/reply">Reply</button>
     <!-- comments exhibition -->
+    <ul id="comment-list" class="list-group">
     <% if (post.Comments.length > 0) { %>
-      <ul id="comment-list" class="list-group">
         <% post.Comments.forEach(function(item) { %>
-          <li class="list-group-item" data-ParentId="null">
+          <li class="list-group-item" data-ParentId="<%= ParentId %> ">
 
-            <!-- inside 1st-layer-comment, there are contents, second-layer-reply-btn and 3nd-layer -->
+            <!-- inside 1st-layer-comment, there are contents, first-layer-reply-btn and 3nd-layer -->
             <div class="each-comment">
               <div>
                 <span>
@@ -65,13 +65,13 @@
                   <p>
                     <%= item.content %>
                   </p>
-                  <a class="second-layer-reply-btn" data-url="/reply/3-layer-comment/:id">reply</a>
+                  <a class="first-layer-reply-btn" data-url="/reply/3-layer-comment/:id" data-method="POST">reply</a>
                 </div>
               </div>
 
 <!-- 3rd layer comment -->
-              <div class="third-layer-comment-container">
-                <ul class="third-layer-comment-list list-group">
+              <div class="second-layer-comment-container">
+                <ul class="second-layer-comment-list list-group">
                   <li id="ejs-current-comment-id" class="list-group-item">
                     <article>
                       <div>avatar</div>
@@ -93,9 +93,9 @@
           </li>
 
         <% }) %>
-      </ul>
-    <% } else { %>
-      <div>No Comment</div>
+        <% } else { %>
+        </ul>
+      <div class="no-comment">No Comment</div>
     <% } %>
   </div>
 </div>

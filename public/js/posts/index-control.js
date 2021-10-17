@@ -85,8 +85,19 @@ $('#posts-index, #show-modal').on('click', '.reply-btn', function(e) {
 
   axios({ method, url, data: formData }).then(function(res) {
     $('#comment-list').prepend(res.data)
+    $('.no-comment').addClass('d-none')
     $('#show-modal #comment-form').trigger('reset')
   }).catch((err) => errorHandler(err, $elem)).finally(() => {
     $elem.attr('disabled', false)
   })
+})
+
+//2nd layer comment btn
+$('#comment-list, .second-layer-comment-container').on('click', '.second-layer-reply-btn', (e) => {
+  e.preventDefault()
+  const $elem = $(e.target)
+  const url = $elem.data('url')
+  const method = $elem.data('method')
+  console.log($elem, url, method);
+
 })

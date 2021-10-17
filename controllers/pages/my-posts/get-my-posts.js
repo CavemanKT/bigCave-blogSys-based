@@ -25,18 +25,11 @@ const myPosts = async function(req, res) {
     limit,
   })
 
-  const resultOfOneUser = await User.findOne({
-    where: {
-      id: currentUser.id
-    }
-  })
-
-  if (resultOfOneUser.firstName == null && resultOfOneUser.lastName == null) {
+  if (currentUser.firstName == null && currentUser.lastName == null) {
     fullname = false
   } else {
-    fullname = `${resultOfOneUser.firstName} ${resultOfOneUser.lastName}`
+    fullname = `${currentUser.firstName} ${currentUser.lastName}`
   }
-
 
   res.render('pages/my-posts/my-posts', {
     posts: results.rows,
