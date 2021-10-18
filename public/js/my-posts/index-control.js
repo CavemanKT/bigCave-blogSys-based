@@ -180,3 +180,6 @@ $('#show-modal').on('click', '.1st-layer-comment-submit-btn', (e) => {
     $(`#comment-list #${parentid}`).append(res.data)
   })
 })
+$('#show-modal').on('click', '.1st-layer-comment-cancel-btn', () => {
+  $('#comment-container').remove()
+})

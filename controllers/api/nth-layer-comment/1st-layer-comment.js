@@ -80,7 +80,7 @@ module.exports = [
   MulterParser.none(),
   authenticateCurrentUserByToken('html'),
   getCurrentUserCommentById('modal'),
-  // validation,  // don't know what is the problem
+  validation,  // don't know what is the problem
   checkValidation,
   addComments
 ]
