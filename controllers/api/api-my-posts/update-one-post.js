@@ -28,27 +28,50 @@ const myPostUpdate = async function(req, res) {
 
 
   await currentPost.update(postParams, { fields: permittedChangeParams.Post })
-  const results = await Comment.findAndCountAll({
+
+  const { query } = req
+  const limit = Number(query.limit) || 5
+
+  let fullname = ''
+
+  if( currentUser ) {
+    await currentUser.update( {offset: null }, { fields: permittedChangeParams.offset })
+  }
+
+  const results = await Post.findAndCountAll({
     where: {
-      PostId: currentPost.id
+      UserId: currentUser.id
     },
     order: [['createdAt', 'DESC']],
-    // limit,
+    limit,
   })
 
-  res.render('api/my-posts/show', {
-    comments: results.rows,
-    post: currentPost,
-    user: currentUser,
-    layout: false
+  if (currentUser.firstName == null && currentUser.lastName == null) {
+    fullname = false
+  } else {
+    fullname = `${currentUser.firstName} ${currentUser.lastName}`
+  }
+
+  res.render('pages/my-posts/my-posts', {
+    posts: results.rows,
+    FullName: fullname
   })
 }
 
 module.exports = [
   MulterParser.none(),
   authenticateCurrentUserByToken('json'),
+  getCurrentUserPostById('modal', {
+    order: [['Comments', 'createdAt', 'DESC']],
+    include: [
+      {
+        association: Post.Comments,
+      }, {
+        association: Post.User
+      }
+    ]
+  }),
   validation,
   checkValidation,
-  getCurrentUserPostById('modal'),
   myPostUpdate
 ]
