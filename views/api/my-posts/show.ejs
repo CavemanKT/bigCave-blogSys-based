@@ -41,35 +41,38 @@
 
     <button type="button" class="reply-btn btn btn-primary btn-lg mt-3" data-method="POST" data-url="/api/posts/<%= post.id %>/reply">Reply</button>
     <!-- comments exhibition -->
-    <ul id="comment-list" class="list-group">
-    <% if (post.Comments.length > 0) { %>
-        <% post.Comments.forEach(function(item) { %>
-          <li class="list-group-item" id="<%= item.id %> " data-ParentId="<%= item.id %> ">
+    <ul id="comment-list" class="list-group" style="overflow: auto;">
+    <% if (comments.length > 0) { %>
+        <% comments.forEach(function(item) { %>
+          <li class="list-group-item" id="<%= item.id %>" data-ParentId="<%= item.ParentId %> ">
 
             <!-- inside 1st-layer-comment, there are contents, first-layer-reply-btn and 3nd-layer -->
             <div class="each-comment">
-              <div>
+              <!-- data-target --- is to target the modal for anchor scrolling feature -->
+              <a data-target="#show-modal" href="#<%= item.ParentId %>" class="thread-link" style="text-decoration: none;">
                 <span>
                   <img
                     id="profile-avatar-preview"
-                    class="<%= item.user.avatar ? 'rounded me-2' : 'd-none' %>"
-                    src="<%= item.user.avatar %>"
+                    class="<%= item.User.avatar ? 'rounded me-2' : 'd-none' %>"
+                    src="<%= item.User.avatar %>"
                     alt="Avatar"
                     style="width: 30px; height: 30px;"
                   >
                 </span>
                 <p class="currentComment-name">
-                  <%= `${item.user.firstName} ${item.user.lastName} : ` %>
+                  <%= `${item.User.firstName} ${item.User.lastName} : ` %>
                 </p>
                 <div class="each-comment-content">
-                  <p>
+                  <p class="currentComment-content">
                     <%= item.content %>
                   </p>
-                  <a class="first-layer-reply-btn" data-url="/nth-layer-comment/1st-layer-comment/textarea/<%= item.id %> " data-method="POST">reply</a>
+                  <a class="first-layer-reply-btn" data-url="/nth-layer-comment/1st-layer-comment/textarea/<%= item.id %>" data-method="POST">reply</a>
                 </div>
-              </div>
-
+              </a>
+              <%  %>
             </div>
+<!-- start right here! -->
+<!-- we need comments inside a comment -->
           </li>
 
         <% }) %>

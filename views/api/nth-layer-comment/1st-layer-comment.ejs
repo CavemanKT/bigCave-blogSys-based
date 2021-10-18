@@ -1,6 +1,29 @@
-<li id="ejs-current-comment-id" class="list-group-item">
-  <article>
-    <div>avatar</div>
-    <a href="#ejs-current-comment-id--which-is-ParentId"></a><p>test</p>
-  </article>
+<li class="list-group-item" id="<%= id %>" data-ParentId="<%= ParentId %>">
+
+  <!-- inside 1st-layer-comment, there are contents, first-layer-reply-btn and 3nd-layer -->
+  <div class="each-comment">
+    <a href="#<%= ParentId %>" class="thread-link" style="text-decoration: none;">
+      <span>
+        <img
+          id="profile-avatar-preview"
+          class="<%= currentUser.avatar ? 'rounded me-2' : 'd-none' %>"
+          src="<%= currentUser.avatar %>"
+          alt="Avatar"
+          style="width: 30px; height: 30px;"
+        >
+      </span>
+      <p class="currentComment-name">
+        <%= `${currentUser.firstName} ${currentUser.lastName} : ` %>
+      </p>
+      <div class="each-comment-content">
+        <p class="currentComment-content text-decoration-underline">
+          replying to <%= `${user.firstName} ${user.lastName} : ${previousComment.content}` %>
+          <br>
+        </p>
+        <p class="currentComment-content ms-5"><%= content %></p>
+        <a class="first-layer-reply-btn" data-url="/nth-layer-comment/1st-layer-comment/textarea/<%= id %>" data-method="POST">reply</a>
+      </div>
+    </a>
+
+  </div>
 </li>

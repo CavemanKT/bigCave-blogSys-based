@@ -19,7 +19,22 @@ const validation = [
 const addTextArea = async function(req, res) {
 
   const { locals: { currentComment } } = res
+
+  const previousComment = await Comment.findOne({
+    where: {
+      id: currentComment.id
+    }
+  })
+
+  const user = await User.findOne({
+    where: {
+      id: previousComment.UserId
+    }
+  })
+
   res.render('api/nth-layer-comment/1st-layer-textarea', {
+    previousCommentUser: user,
+    previousComment,
     ParentId: currentComment.id,
     layout: false
   })

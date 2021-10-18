@@ -5,7 +5,6 @@ const MulterParser = require('../../../services/MulterParser')
 const {
   authenticateCurrentUserByToken,
   checkValidation,
-  myPost:{ getCurrentUserPostById },
   myComment: {getCurrentUserCommentById},
 } = require('../../_helpers')
 
@@ -28,13 +27,16 @@ const addComments = async function(req, res) {
 // fetch all the posts data from db regardless of the currentUser
 // create data
 
-  const { locals: { currentPost, currentUser } } = res
-  const { body: commentParam } = req
+  const { locals: { currentComment, currentUser } } = res
+  const { body: {content}, params: { id } } = req
+
+// console.log('content:', content, 'ParentId: ', id );
 
   const newComment = await Comment.create({
     UserId: currentUser.id,
-    PostId: currentPost.id,
-    ...commentParam,
+    PostId: currentComment.PostId,
+    ParentId: id,
+    content,
   }, {
     fields: permittedParams,
     include: {
@@ -45,9 +47,31 @@ const addComments = async function(req, res) {
     }
   })
 
+    const previousComment = await Comment.findOne({
+    where: {
+      id: id
+    },
+  })
+  console.log( previousComment.content);
+
+
+  const user = await User.findOne({
+    where: {
+      id: previousComment.UserId
+    }
+  })
+
+  console.log(user.firstName, user.lastName);
+
+
+
   res.render('api/nth-layer-comment/1st-layer-comment', {
+    user,
+    previousComment,
+    id: newComment.id,
+    ParentId: id,
     currentUser,
-    comment: newComment,
+    content: newComment.content,
     layout: false
   })
 }
@@ -55,9 +79,8 @@ const addComments = async function(req, res) {
 module.exports = [
   MulterParser.none(),
   authenticateCurrentUserByToken('html'),
-  getCurrentUserPostById('modal'),
   getCurrentUserCommentById('modal'),
-  validation,
+  // validation,  // don't know what is the problem
   checkValidation,
   addComments
 ]

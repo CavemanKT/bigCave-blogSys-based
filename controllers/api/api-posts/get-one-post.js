@@ -17,9 +17,6 @@ const showPost = async function(req, res) {
     order: [['createdAt', 'DESC']]
   })
 
-  comments.forEach((comment, i) => {
-    currentPost.Comments[i].user = comment.User
-  });
 
   res.render('api/my-posts/show', {
     comments,

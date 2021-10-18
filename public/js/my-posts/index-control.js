@@ -151,3 +151,32 @@ $('#posts-index, #edit-modal').on('click', '#edit-form-submit', (e) => {
 
   }).catch((err) => errorHandler(err, $elem))
 })
+
+
+//2nd layer comment btn      =============================================
+$('#show-modal').on('click', '.first-layer-reply-btn', (e) => {
+  e.preventDefault()
+  const $elem = $(e.target)
+  const url = $elem.data('url')
+  const method = $elem.data('method')
+  const parentid = url.split('/')[4]
+console.log(parentid);
+  axios({ method, url }).then((res) => {
+    $(`#comment-list #${parentid}`).append(res.data)
+  })
+})
+
+$('#show-modal').on('click', '.1st-layer-comment-submit-btn', (e) => {
+  e.preventDefault()
+  const $elem = $(e.target)
+  const url = $elem.data('url')
+  const method = $elem.data('method')
+  const formData = new FormData($('#show-modal #compose-form')[0])
+  const parentid = url.split('/')[4]
+
+
+  axios({ method, url, data: formData }).then((res) => {
+    $('#comment-container').remove()
+    $(`#comment-list #${parentid}`).append(res.data)
+  })
+})

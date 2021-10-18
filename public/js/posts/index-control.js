@@ -1,3 +1,4 @@
+
 const $showModal = $('#show-modal')
 
 const setModal = (html) => {
@@ -80,7 +81,6 @@ $('#posts-index, #show-modal').on('click', '.reply-btn', function(e) {
   const url = $elem.data('url')
   const method = $elem.data('method')
   const formData = new FormData($('#show-modal #comment-form')[0])
-
   $elem.attr('disabled', true)
 
   axios({ method, url, data: formData }).then(function(res) {
@@ -93,13 +93,30 @@ $('#posts-index, #show-modal').on('click', '.reply-btn', function(e) {
 })
 
 //2nd layer comment btn      =============================================
-$('#show-modal .first-layer-replay-btn').toggle((e) => {
+$('#show-modal').on('click', '.first-layer-reply-btn', (e) => {
   e.preventDefault()
   const $elem = $(e.target)
   const url = $elem.data('url')
   const method = $elem.data('method')
-  console.log(url, method);
+  const parentid = url.split('/')[4]
+
+  // console.log('.first-layer-reply-btn', url, method);
   axios({ method, url }).then((res) => {
-    $('#comment-list').prepend(res.data)
+    $(`#comment-list #${parentid}`).append(res.data)
   })
-}, )
+})
+
+$('#show-modal').on('click', '.1st-layer-comment-submit-btn', (e) => {
+  e.preventDefault()
+  const $elem = $(e.target)
+  const url = $elem.data('url')
+  const method = $elem.data('method')
+  const formData = new FormData($('#show-modal #compose-form')[0])
+  const parentid = url.split('/')[4]
+
+  axios({ method, url, data: formData }).then((res) => {
+    $('#comment-container').first().html('')
+    $(`#comment-list #${parentid}`).append(res.data)
+    // const parentid = $('#compose-container').first().data('parentid')
+  })
+})

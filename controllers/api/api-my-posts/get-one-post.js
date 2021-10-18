@@ -1,5 +1,6 @@
 const { authenticateCurrentUserByToken , myPost: { getCurrentUserPostById } } = require('../../_helpers')
 const { Comment, Post } = require('../../../models')
+const comment = require('../../../models/schema/comment')
 
 const showPost = async function(req, res) {
   const { locals: { currentPost } } = res
@@ -17,12 +18,23 @@ const showPost = async function(req, res) {
     order: [['createdAt', 'DESC']]
   })
 
-  comments.forEach((comment, i) => {
-    currentPost.Comments[i].user = comment.User
-  });
+  const onePost = await Post.findOne({
+    where: {
+      id: currentPost.id
+    },
+    include: {
+    association: Post.Comments,
+    include: {
+      association: Comment.Children,
+      include: Comment.Children
+    }
+  }
+})
 
+console.log(onePost.Comments[2].Parent);
 
   res.render('api/my-posts/show', {
+    onePost,
     comments,
     post: currentPost,
     layout: false

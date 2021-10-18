@@ -1,18 +1,19 @@
-<li id="<%= ParentId %>" data-ParentId="<%= ParentId %> " class="list-group-item">
+<li id="comment-container" data-parentid="<%= ParentId %>" class="list-group-item">
   <form id="compose-form" novalidate>
 
-    <div class="form-group">
-      <label>Content</label>
+    <div class="form-floating">
       <textarea class="form-control"
+      id="comment-textarea"
       name="content"
       rows="3"
       cols="30"
       type="text"
       data-error-ref="content"
       required></textarea>
+      <label for="comment-textarea">replying to <%= `${previousCommentUser.firstName} ${previousCommentUser.lastName} : ${previousComment.content}` %>  </label>
       <div class="invalid-feedback"></div>
     </div>
-    <a class="2nd-layer-comment-submit-btn btn btn-primary" data-url="/nth-layer-comment/1nd-layer-comment/<%= ParentId %> " data-method="POST">Comment</a>
-
   </form>
+
+  <button type="button" class="1st-layer-comment-submit-btn btn btn-primary" data-url="/nth-layer-comment/1st-layer-comment/addComment/<%= ParentId %>" data-method="POST">Comment</button>
 </li>
