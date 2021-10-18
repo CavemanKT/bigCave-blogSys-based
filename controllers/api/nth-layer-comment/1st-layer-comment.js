@@ -24,8 +24,6 @@ const validation = [
 ]
 
 const addComments = async function(req, res) {
-// fetch all the posts data from db regardless of the currentUser
-// create data
 
   const { locals: { currentUser } } = res
   const { body: {content}, params: { id } } = req
@@ -35,7 +33,7 @@ const addComments = async function(req, res) {
       id: id
     },
   })
-  console.log( 'previousComment.content: ', previousComment.content);
+  // console.log( 'previousComment.content: ', previousComment.content);
 
 
   const user = await User.findOne({
@@ -44,14 +42,14 @@ const addComments = async function(req, res) {
     }
   })
 
-  console.log(user.firstName, user.lastName);
+  // console.log(user.firstName, user.lastName);
 
   const thePost = await Post.findOne({
     where: {
       id: previousComment.PostId
     }
   })
-  console.log('the Post', thePost);
+  // console.log('the Post', thePost);
 
   const newComment = await Comment.create({
     UserId: currentUser.id,
@@ -67,7 +65,7 @@ const addComments = async function(req, res) {
       }
     }
   })
-  console.log('newComment: ', newComment);
+  // console.log('newComment: ', newComment);
 
 
 
@@ -85,8 +83,7 @@ const addComments = async function(req, res) {
 module.exports = [
   MulterParser.none(),
   authenticateCurrentUserByToken('html'),
-  // getCurrentUserCommentById('modal'),
-  validation,  // don't know what is the problem
+  validation,
   checkValidation,
   addComments
 ]
