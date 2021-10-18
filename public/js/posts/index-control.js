@@ -117,9 +117,8 @@ $('#show-modal').on('click', '.1st-layer-comment-submit-btn', (e) => {
   axios({ method, url, data: formData }).then((res) => {
     $('#comment-container').remove()
     $(`#comment-list #${parentid}`).append(res.data)
-    // const parentid = $('#compose-container').first().data('parentid')
   })
 })
-$('#show-modal').on('click', '1st-layer-comment-cancel-btn', () => {
+$('#show-modal').on('click', '.1st-layer-comment-cancel-btn', () => {
   $('#comment-container').remove()
 })

@@ -27,14 +27,35 @@ const addComments = async function(req, res) {
 // fetch all the posts data from db regardless of the currentUser
 // create data
 
-  const { locals: { currentComment, currentUser } } = res
+  const { locals: { currentUser } } = res
   const { body: {content}, params: { id } } = req
 
-// console.log('content:', content, 'ParentId: ', id );
+  const previousComment = await Comment.findOne({
+    where: {
+      id: id
+    },
+  })
+  console.log( 'previousComment.content: ', previousComment.content);
+
+
+  const user = await User.findOne({
+    where: {
+      id: previousComment.UserId
+    }
+  })
+
+  console.log(user.firstName, user.lastName);
+
+  const thePost = await Post.findOne({
+    where: {
+      id: previousComment.PostId
+    }
+  })
+  console.log('the Post', thePost);
 
   const newComment = await Comment.create({
     UserId: currentUser.id,
-    PostId: currentComment.PostId,
+    PostId: previousComment.PostId,
     ParentId: id,
     content,
   }, {
@@ -46,22 +67,7 @@ const addComments = async function(req, res) {
       }
     }
   })
-
-    const previousComment = await Comment.findOne({
-    where: {
-      id: id
-    },
-  })
-  console.log( previousComment.content);
-
-
-  const user = await User.findOne({
-    where: {
-      id: previousComment.UserId
-    }
-  })
-
-  console.log(user.firstName, user.lastName);
+  console.log('newComment: ', newComment);
 
 
 
@@ -79,7 +85,7 @@ const addComments = async function(req, res) {
 module.exports = [
   MulterParser.none(),
   authenticateCurrentUserByToken('html'),
-  getCurrentUserCommentById('modal'),
+  // getCurrentUserCommentById('modal'),
   validation,  // don't know what is the problem
   checkValidation,
   addComments

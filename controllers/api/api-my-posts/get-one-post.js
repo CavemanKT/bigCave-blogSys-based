@@ -31,7 +31,7 @@ const showPost = async function(req, res) {
   }
 })
 
-console.log(onePost.Comments[2].Parent);
+// console.log(onePost.Comments[2].Parent);
 
   res.render('api/my-posts/show', {
     onePost,

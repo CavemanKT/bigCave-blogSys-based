@@ -18,13 +18,15 @@ const validation = [
 
 const addTextArea = async function(req, res) {
 
-  const { locals: { currentComment } } = res
+  // const { locals: { currentComment } } = res
+  const { params: {id} } = req
 
   const previousComment = await Comment.findOne({
     where: {
-      id: currentComment.id
+      id: id
     }
   })
+  console.log('previous comment: ', id);
 
   const user = await User.findOne({
     where: {
@@ -35,7 +37,7 @@ const addTextArea = async function(req, res) {
   res.render('api/nth-layer-comment/1st-layer-textarea', {
     previousCommentUser: user,
     previousComment,
-    ParentId: currentComment.id,
+    ParentId: id,
     layout: false
   })
 }
@@ -43,7 +45,7 @@ const addTextArea = async function(req, res) {
 module.exports = [
   MulterParser.none(),
   authenticateCurrentUserByToken('html'),
-  getCurrentUserCommentById('modal'),
+  // getCurrentUserCommentById('modal'),
   checkValidation,
   addTextArea
 ]

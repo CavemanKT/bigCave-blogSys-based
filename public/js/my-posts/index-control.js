@@ -160,7 +160,7 @@ $('#show-modal').on('click', '.first-layer-reply-btn', (e) => {
   const url = $elem.data('url')
   const method = $elem.data('method')
   const parentid = url.split('/')[4]
-console.log(parentid);
+
   axios({ method, url }).then((res) => {
     $(`#comment-list #${parentid}`).append(res.data)
   })
